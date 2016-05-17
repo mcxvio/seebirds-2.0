@@ -1,17 +1,23 @@
 from apis.ebird import recent
-from apis.ebird import format
+from apis.ebird import reformat
 from flask import Flask
 
 app = Flask(__name__)
 
 @app.route('/')
+@app.route('/index.html')
 def index():
-    return 'Welcome to Murmuation :: worldwide birding data!'
+    #return 'Welcome to Murmuation :: worldwide birding data!'
+    return app.send_static_file('index.html')
+
+@app.route('/outdoors')
+def outdoors():
+    return app.send_static_file('outdoors.html')
 
 @app.route('/checklists/<string:region>', methods=['GET'])
 def get_checklists(region):
-    subregion = format.extractRegionCode(region)
-    rtype = format.extractRegionType(subregion)
+    subregion = reformat.extractRegionCode(region)
+    rtype = reformat.extractRegionType(subregion)
 
     response = recent.region_obs(rtype, subregion)
 
@@ -19,8 +25,8 @@ def get_checklists(region):
 
 @app.route('/notables/<string:region>', methods=['GET'])
 def get_notables(region):
-    subregion = format.extractRegionCode(region)
-    rtype = format.extractRegionType(subregion)
+    subregion = reformat.extractRegionCode(region)
+    rtype = reformat.extractRegionType(subregion)
 
     response = recent.region_notable(rtype, subregion)
 
@@ -32,10 +38,11 @@ def get_location(location_id):
 
     return response
 
-@app.route('/species/<string:region>/<string:sciName>', methods=['GET'])
-def get_species(region, sciName):
-    subregion = format.extractRegionCode(region)
-    rtype = format.extractRegionType(subregion)
+@app.route('/species/<string:region>/<string:fullName>', methods=['GET'])
+def get_species(region, fullName):
+    subregion = reformat.extractRegionCode(region)
+    rtype = reformat.extractRegionType(subregion)
+    sciName = reformat.extractScientificName(fullName)
 
     response = recent.region_species_obs(rtype, subregion, sciName)
 

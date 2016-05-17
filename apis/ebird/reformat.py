@@ -5,6 +5,11 @@ def extractRegionCode(region):
 
     return regionCode
 
+def extractScientificName(fullName):
+    sciName = fullName[fullName.find("(")+1:fullName.find(")")]
+
+    return sciName
+
 # Count the separating dashes of the region code.
 def extractRegionType(subregion):
 	if (len(subregion) == 3):
