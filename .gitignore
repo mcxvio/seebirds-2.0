@@ -1,5 +1,5 @@
 # pythonanywhere specific cache files
-*.cpython-35.pyc
+*.pyc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
