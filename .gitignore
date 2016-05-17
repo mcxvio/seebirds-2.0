@@ -1,3 +1,8 @@
+# pythonanywhere specific cache files
+__pycache__/app.cpython-35.pyc
+apis/__pycache__/__init__.cpython-35.pyc
+apis/ebird/__pycache__/recent.cpython-35.pyc
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
