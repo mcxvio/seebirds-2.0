@@ -1,8 +1,14 @@
 from apis.ebird import recent
 from apis.ebird import reformat
 from flask import Flask
+from flask import render_template
 
 app = Flask(__name__)
+
+@app.template_filter('getdatetime')
+def datetimeformatter(value, dateortime):
+    return reformat.extractDateTime(value, dateortime)
+app.jinja_env.filters['getdatetime'] = datetimeformatter
 
 @app.route('/')
 @app.route('/index.html')
@@ -14,38 +20,28 @@ def index():
 def outdoors():
     return app.send_static_file('outdoors.html')
 
+# checklists
 @app.route('/checklists/<string:region>', methods=['GET'])
 def get_checklists(region):
-    subregion = reformat.extractRegionCode(region)
-    rtype = reformat.extractRegionType(subregion)
+    data = recent.region_obs(region)
+    return render_template('submissions_results.html', data=data, region=region)
 
-    response = recent.region_obs(rtype, subregion)
-
-    return response
-
+# notables
 @app.route('/notables/<string:region>', methods=['GET'])
 def get_notables(region):
-    subregion = reformat.extractRegionCode(region)
-    rtype = reformat.extractRegionType(subregion)
+    data = recent.region_notable(region)
+    return render_template('sightings_results.html', data=data, region=region)
 
-    response = recent.region_notable(rtype, subregion)
-
-    return response
-
+# location
 @app.route('/location/<string:location_id>', methods=['GET'])
 def get_location(location_id):
     response = recent.hotspot_obs(location_id)
-
     return response
 
+# species
 @app.route('/species/<string:region>/<string:fullName>', methods=['GET'])
 def get_species(region, fullName):
-    subregion = reformat.extractRegionCode(region)
-    rtype = reformat.extractRegionType(subregion)
-    sciName = reformat.extractScientificName(fullName)
-
-    response = recent.region_species_obs(rtype, subregion, sciName)
-
+    response = recent.region_species_obs(region, fullName)
     return response
 
 if __name__ == '__main__':

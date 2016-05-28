@@ -1,3 +1,4 @@
+from datetime import datetime
 
 # Extract the region between the brackets in the selected region name.
 def extractRegionCode(region):
@@ -19,3 +20,12 @@ def extractRegionType(subregion):
 		return "subnational2"
 
 	return "subnational1"
+
+def extractDateTime(value, dateortime):
+    obsDateTime = datetime.strptime(value, '%Y-%m-%d %H:%M')
+    if dateortime == 'dt':
+        return obsDateTime.strftime('%d-%b, %Y, %H:%M')
+    elif dateortime == 'd':
+        return obsDateTime.strftime('%d-%b')
+    else:
+        return obsDateTime.strftime('%H:%M')

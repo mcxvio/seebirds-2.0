@@ -22,16 +22,15 @@ function getChecklistSubmissions(region, message) {
 	var output = "";
 	var url = '/checklists/' + region;
 	var data = $.getValues(url, "json");
-
-    if (data.length > 0) {
+    /*if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
 			output = formatResponseMessage(errorMsg);
 		} else {
 	        output = getChecklistsHtml(data, region);
 		}
-    }
-
+    }*/
+    output = data;
     return output;
 }
 
@@ -43,7 +42,7 @@ function getNotableSightings(region, message) {
 	var output = "";
 	var url = '/notables/' + region;
 	var data = $.getValues(url, "json");
-
+    /*
     if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
@@ -52,8 +51,8 @@ function getNotableSightings(region, message) {
         	output = getNotablesHtml(data, region);
 		}
     }
-
-    return output;
+    */
+    return data;
 }
 
 function getLocationSubmissions(locationId) {

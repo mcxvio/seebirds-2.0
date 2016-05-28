@@ -1,0 +1,19 @@
+<ul data-role="listview" class="ui-listview">
+    <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ data|length }} notable sightings for {{ region }} in last 5 days.</li>
+    {% set prevdate = "" %}
+    {% for item in data %}
+        {% set obsdate = item.obsDt|getdatetime('d') %}
+        {% if prevdate != obsdate %}
+            <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ obsdate }}</li>
+            {% set prevdate = obsdate %}
+        {% endif %}
+        <li class="ui-li-static ui-body-inherit">
+            <a href="/#species" class="gotoSpecies" title="{{ item.comName }} ({{ item.sciName }})" target="_self">{{ item.comName }}</a>
+            @
+            <a href="/#location" class="gotoLocation" title="{{ item.locID }}" target="_self">{{ item.locName }}</a>
+            @
+    		<a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
+            <br>-- {{ item.userDisplayName }}
+        </li>
+    {% endfor %}
+</ul>
