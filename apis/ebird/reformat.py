@@ -1,5 +1,25 @@
 from datetime import datetime
 
+def extractUniqueDates(response):
+    uniqueDates = []
+    for item in response:
+        if not item['obsDt'] in uniqueDates:
+            uniqueDates.append(item['obsDt'])
+    return uniqueDates
+
+def removeObItems(ob):
+    del ob['sciName']
+    del ob['comName']
+    del ob['howMany']
+    del ob['obsValid']
+    del ob['obsReviewed']
+    #return ob
+
+def addChecklistsForDate(addDate, checklists, submission, submissions):
+    submission['obsDt'] = addDate
+    submission['checklists'] = checklists
+    submissions.append(submission)
+
 # Extract the region between the brackets in the selected region name.
 def extractRegionCode(region):
     regionCode = region[region.find("(")+1:region.find(")")]

@@ -8,10 +8,7 @@ def region_obs(region):
     rtype = reformat.extractRegionType(subregion)
     response = json.loads(raw._region_obs(rtype, subregion))
     # Wrangle the json for html template.
-    uniqueDates = []
-    for item in response:
-        if not item['obsDt'] in uniqueDates:
-            uniqueDates.append(item['obsDt'])
+    uniqueDates = reformat.extractUniqueDates(response)
 
     submissions = []
     submission = {}
@@ -24,30 +21,23 @@ def region_obs(region):
         if prevDate == "":
             prevDate = currDate
         if prevDate != currDate:
-            submission['obsDt'] = prevDate
-            submission['checklists'] = checklists
-            submissions.append(submission)
+            # Add each date's checklist to the checklists deck.
+            reformat.addChecklistsForDate(prevDate, checklists, submission, submissions)
             submission = {}
             checklists = []
             prevDate = currDate
 
-        obs = [x for x in response if x['obsDt'] == item]
-        ob = obs[0]
-        del ob['sciName']
-        del ob['comName']
-        del ob['howMany']
-        del ob['obsValid']
-        del ob['obsReviewed']
+        obs = [x for x in response if x['obsDt'] == item] #get checklist's sightings for each date.
+        ob = obs[0] #save the first sighting to be used as output.
+        reformat.removeObItems(ob)
         ob['obsTm'] = reformat.extractDateTime(item, 't')
-        ob['speciesCount'] = len(obs)
+        ob['speciesCount'] = len(obs) #total number of species seen.
         checklists.append(ob)
         chkCount = (chkCount + 1)
 
     # Add last date's checklist to the checklists deck.
-    submission['obsDt'] = currDate
-    submission['checklists'] = checklists
-    submissions.append(submission)
-    submissions.append({'chkCount': chkCount})
+    reformat.addChecklistsForDate(currDate, checklists, submission, submissions)
+    submissions.append({'chkCount': chkCount}) #number of checklists for a date.
     submission = {}
     checklists = []
 
