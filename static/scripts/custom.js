@@ -63,7 +63,7 @@ function getLocationSubmissions(locationId) {
 	var output = "";
 	var url = '/location/' + locationId;
 	var data = $.getValues(url, "json");
-
+    /*
     if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
@@ -72,7 +72,8 @@ function getLocationSubmissions(locationId) {
 	        output = getLocationHtml(data, locationId);
 		}
     }
-
+    */
+    output = data;
 	return output;
 }
 
@@ -84,7 +85,7 @@ function getSpeciesSightings(region, fullSpeciesName) {
 	var output = "";
 	var url = '/species/' + region + '/' + fullSpeciesName;
 	var data = $.getValues(url, "json");
-
+    /*
     if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
@@ -93,7 +94,8 @@ function getSpeciesSightings(region, fullSpeciesName) {
 	        output = getSpeciesHtml(data, region);
 		}
     }
-
+    */
+    output = data;
 	return output;
 }
 

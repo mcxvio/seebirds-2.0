@@ -35,14 +35,14 @@ def get_notables(region):
 # location
 @app.route('/location/<string:location_id>', methods=['GET'])
 def get_location(location_id):
-    response = recent.hotspot_obs(location_id)
-    return response
+    data = recent.hotspot_obs(location_id)
+    return render_template('location_results.html', data=data)
 
 # species
 @app.route('/species/<string:region>/<string:fullName>', methods=['GET'])
 def get_species(region, fullName):
-    response = recent.region_species_obs(region, fullName)
-    return response
+    data = recent.region_species_obs(region, fullName)
+    return render_template('species_results.html', data=data, name=fullName)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -48,8 +48,6 @@ def region_notable(region):
     subregion = reformat.extractRegionCode(region)
     rtype = reformat.extractRegionType(subregion)
     response = json.loads(raw._region_notable(rtype, subregion))
-    # Wrangle the json for html template.
-    # ...
     return response
 
 # location; empty if location is not valid.
