@@ -1,16 +1,34 @@
 from datetime import datetime
 
-def extractUniqueDates(response):
+def extractDateTime(value, dateortime):
+    obsDateTime = datetime.strptime(value, '%Y-%m-%d %H:%M')
+    if dateortime == 'dt':
+        return obsDateTime.strftime('%d-%b, %Y, %H:%M')
+    elif dateortime == 'd':
+        return obsDateTime.strftime('%d %B')
+    elif dateortime == 'dx':
+        return obsDateTime.strftime('%Y-%m-%d')
+    else:
+        return obsDateTime.strftime('%H:%M')
+
+def extractUniqueDateTimes(response):
     uniqueDates = []
     for item in response:
         if not item['obsDt'] in uniqueDates:
             uniqueDates.append(item['obsDt'])
     return uniqueDates
 
+def extractUniqueDates(response):
+    uniqueDates = []
+    for item in response:
+        if not extractDateTime(item['obsDt'], 'dx') in uniqueDates:
+            uniqueDates.append(extractDateTime(item['obsDt'], 'dx'))
+    return uniqueDates
+
 def removeObItems(ob):
     del ob['sciName']
     del ob['comName']
-    del ob['howMany']
+    #del ob['howMany']
     del ob['obsValid']
     del ob['obsReviewed']
     #return ob
@@ -40,12 +58,3 @@ def extractRegionType(subregion):
 		return "subnational2"
 
 	return "subnational1"
-
-def extractDateTime(value, dateortime):
-    obsDateTime = datetime.strptime(value, '%Y-%m-%d %H:%M')
-    if dateortime == 'dt':
-        return obsDateTime.strftime('%d-%b, %Y, %H:%M')
-    elif dateortime == 'd':
-        return obsDateTime.strftime('%d-%b')
-    else:
-        return obsDateTime.strftime('%H:%M')

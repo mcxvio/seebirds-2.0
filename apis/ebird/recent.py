@@ -7,8 +7,8 @@ def region_obs(region):
     subregion = reformat.extractRegionCode(region)
     rtype = reformat.extractRegionType(subregion)
     response = json.loads(raw._region_obs(rtype, subregion))
-    # Wrangle the json for html template.
-    uniqueDates = reformat.extractUniqueDates(response)
+    # Wrangle the json for html template -> {"obsDt": extractDateTime(item['obsDt'], 'd'), "checklists": [{"locID": item['locID'], "locName": item['locName'], "obsTm": extractDateTime(item['obsDt'], 't'), "speciesCount": speciesCount}]}
+    uniqueDateTimes = reformat.extractUniqueDateTimes(response)
 
     submissions = []
     submission = {}
@@ -16,7 +16,7 @@ def region_obs(region):
     prevDate = ""
     currDate = ""
     chkCount = 0
-    for item in uniqueDates:
+    for item in uniqueDateTimes:
         currDate = reformat.extractDateTime(item, 'd')
         if prevDate == "":
             prevDate = currDate
@@ -42,6 +42,30 @@ def region_obs(region):
     checklists = []
 
     return submissions
+
+def region_notable_wrangle(region):
+    subregion = reformat.extractRegionCode(region)
+    rtype = reformat.extractRegionType(subregion)
+    response = json.loads(raw._region_notable(rtype, subregion))
+
+    # Extracting the dates in the following way makes the template code simpler but loses the time which needs to be displayed.
+    # Wrangle the json for html template.
+    uniqueDates = []
+    for item in response:
+        if not reformat.extractDateTime(item['obsDt'], 'dx') in uniqueDates:
+            uniqueDates.append(reformat.extractDateTime(item['obsDt'], 'dx'))
+
+    sightings = []
+    sighting = {}
+    for item in uniqueDates:
+        print("item ", item)
+        obs = [x for x in response if reformat.extractDateTime(x['obsDt'], 'dx') == item] #get checklist's sightings for each date.
+        sighting['obsDt'] = item
+        sighting['species'] = obs
+        sightings.append(sighting)
+        sighting = {}
+
+    return sightings
 
 # notables
 def region_notable(region):

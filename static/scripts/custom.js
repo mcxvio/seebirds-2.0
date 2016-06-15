@@ -19,19 +19,19 @@ function getChecklistSubmissions(region, message) {
         return formatResponseMessage(message);
     }
 
-	var output = "";
 	var url = '/checklists/' + region;
 	var data = $.getValues(url, "json");
-    /*if (data.length > 0) {
+    /*var output = "";
+    if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
 			output = formatResponseMessage(errorMsg);
 		} else {
 	        output = getChecklistsHtml(data, region);
 		}
-    }*/
-    output = data;
-    return output;
+    }
+    return output;*/
+    return data;
 }
 
 function getNotableSightings(region, message) {
@@ -39,10 +39,9 @@ function getNotableSightings(region, message) {
         return formatResponseMessage(message);
     }
 
-	var output = "";
 	var url = '/notables/' + region;
 	var data = $.getValues(url, "json");
-    /*
+    /*var output = "";
     if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
@@ -60,10 +59,9 @@ function getLocationSubmissions(locationId) {
 		return "";
 	}
 
-	var output = "";
 	var url = '/location/' + locationId;
 	var data = $.getValues(url, "json");
-    /*
+    /*var output = "";
     if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
@@ -72,9 +70,9 @@ function getLocationSubmissions(locationId) {
 	        output = getLocationHtml(data, locationId);
 		}
     }
+    return output;
     */
-    output = data;
-	return output;
+	return data;
 }
 
 function getSpeciesSightings(region, fullSpeciesName) {
@@ -82,10 +80,9 @@ function getSpeciesSightings(region, fullSpeciesName) {
 		return "";
 	}
 
-	var output = "";
 	var url = '/species/' + region + '/' + fullSpeciesName;
 	var data = $.getValues(url, "json");
-    /*
+    /*var output = "";
     if (data.length > 0) {
 		if (data.indexOf("errorMsg") > 0) {
 			var errorMsg = extractErrorMessage(data);
@@ -94,17 +91,17 @@ function getSpeciesSightings(region, fullSpeciesName) {
 	        output = getSpeciesHtml(data, region);
 		}
     }
+    return output;
     */
-    output = data;
-	return output;
+	return data;
 }
 
 function extractErrorMessage(data) {
 	return data.slice(data.indexOf('errorMsg":"')+11, data.indexOf('"}]'));
 }
-
+/*
 function extractDatetimesFromResultsData(data) {
-	/* Extract distinct datetimes from ebird json results */
+	// Extract distinct datetimes from ebird json results.
 	var lookup = {};
 	var items = data;
 	var result = [];
@@ -120,6 +117,7 @@ function extractDatetimesFromResultsData(data) {
 
 	return result;
 }
+*/
 // End Data.
 
 // Create output lists.
@@ -154,11 +152,12 @@ function formatResponseMessage(message) {
 // End lists.
 
 // Format data into html lists.
+/*
 function getChecklistsHtml(data, selection) {
 	var ul = getUnorderedList();
 	var extractedDatetimes = extractDatetimesFromResultsData(data);
 	var prevDate = "";
-	/* Set date for dividing list item and use the date collection to extract summary of checklist data for display */
+	// Set date for dividing list item and use the date collection to extract summary of checklist data for display.
 	for (var j = 0; j < extractedDatetimes.length; ++j) {
 		var checklist = data.filter(function(i, n) { return i.obsDt == extractedDatetimes[j]; });
 
@@ -169,7 +168,7 @@ function getChecklistsHtml(data, selection) {
 		var location = '<a href="#location" class="gotoLocation" title="' + checklist[0].locID + '" target="_self">' + checklist[0].locName + '</a>';
 
 		if (prevDate != date) {
-			//write out date heading.
+			// Write out date heading.
 			ul.appendChild(getListItemDivider(date));
 			prevDate = date;
 		}
@@ -178,16 +177,17 @@ function getChecklistsHtml(data, selection) {
 		ul.appendChild(getListItem(innerHtml));
 	}
 	ul.appendChild(getListItem("&nbsp;"));
-	/* Set message */
+	// Set message.
 	var message = extractedDatetimes.length + " checklists with most recent species for " + selection + " in last 5 days.";
 	ul.insertBefore(getListItemDivider(message), ul.childNodes[0]);
 	return ul;
 }
-
+*/
+/*
 function getNotablesHtml(data, selection) {
 	var ul = getUnorderedList();
 	var extractedDatetimes = extractDatetimesFromResultsData(data);
-	/* Set date for dividing list item and use the date collection to extract summary of checklist data for display */
+	// Set date for dividing list item and use the date collection to extract summary of checklist data for display.
 	var prevDate = "";
 	var speciesCount = 0;
 	for (var j = 0; j < extractedDatetimes.length; ++j) {
@@ -197,7 +197,7 @@ function getNotablesHtml(data, selection) {
 		var time = $.formatDateTime('hh:ii', new Date(extractedDatetimes[j].replace(/-/g , "/")));
 
 		if (prevDate != date) {
-			//write out date heading.
+			// Write out date heading.
 			ul.appendChild(getListItemDivider(date));
 			prevDate = date;
 		}
@@ -215,16 +215,17 @@ function getNotablesHtml(data, selection) {
 		}
 	}
 	ul.appendChild(getListItem("&nbsp;"));
-	/* Set message */
+	// Set message.
 	var message = speciesCount + " notable sightings for " + selection + " in last 5 days.";
 	ul.insertBefore(getListItemDivider(message), ul.childNodes[0]);
 	return ul;
 }
-
+*/
+/*
 function getLocationHtml(data, locId) {
 	var ul = getUnorderedList();
 	var extractedDatetimes = extractDatetimesFromResultsData(data);
-	/* Set date for dividing list item and use the date collection to extract summary of checklist data for display */
+	// Set date for dividing list item and use the date collection to extract summary of checklist data for display.
 	var prevDate = "";
 	var speciesCount = 0;
 	for (var j = 0; j < extractedDatetimes.length; ++j) {
@@ -234,7 +235,7 @@ function getLocationHtml(data, locId) {
 		var time = $.formatDateTime('hh:ii', new Date(extractedDatetimes[j].replace(/-/g , "/")));
 
 		if (prevDate != date) {
-			//write out date heading.
+			// Write out date heading.
 			ul.appendChild(getListItemDivider(date));
 			prevDate = date;
 		}
@@ -251,16 +252,17 @@ function getLocationHtml(data, locId) {
 		}
 	}
 	ul.appendChild(getListItem("&nbsp;"));
-	/* Set message */
+	// Set message.
 	var message = speciesCount + ' species at <a href="http://ebird.org/ebird/hotspot/' + locId  + '" target="_blank" class="external">' + checklist[0].locName + '</a> in last 10 days.';
 	ul.insertBefore(getListItemDivider(message), ul.childNodes[0]);
 	return ul;
 }
-
+*/
+/*
 function getSpeciesHtml(data, region) {
 	var ul = getUnorderedList();
 	var extractedDatetimes = extractDatetimesFromResultsData(data);
-	/* Set date for dividing list item and use the date collection to extract summary of checklist data for display */
+	// Set date for dividing list item and use the date collection to extract summary of checklist data for display.
 	var prevDate = "";
 	for (var j = 0; j < extractedDatetimes.length; ++j) {
 		var checklist = data.filter(function(i, n) { return i.obsDt == extractedDatetimes[j]; });
@@ -272,7 +274,7 @@ function getSpeciesHtml(data, region) {
 		var location = '<a href="#location" class="gotoLocation" title="' + checklist[0].locID + '" target="_self">' + checklist[0].locName + '</a>';
 
 		if (prevDate != date) {
-			//write out date heading.
+			// Write out date heading.
 			ul.appendChild(getListItemDivider(date));
 			prevDate = date;
 		}
@@ -281,9 +283,10 @@ function getSpeciesHtml(data, region) {
 		ul.appendChild(getListItem(innerHtml));
 	}
 	ul.appendChild(getListItem("&nbsp;"));
-	/* Set message */
+	// Set message.
 	var message = extractedDatetimes.length + ' sightings of <a href="https://duckduckgo.com/?q=' + checklist[0].comName + '&iax=1&ia=images" target="_blank" class="external">' + checklist[0].comName + '</a> in ' + region + ' in last 10 days.';
 	ul.insertBefore(getListItemDivider(message), ul.childNodes[0]);
 	return ul;
 }
+*/
 // End formatting.
