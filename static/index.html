@@ -6,8 +6,6 @@
     <title>Hunt's eBirds</title>
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="/static/scripts/jquery.formatDateTime.min.js"></script>
-    <script src="/static/scripts/custom.js"></script>
-    <script src="/static/scripts/plugin.js"></script>
     <!-- jQM -->
     <link rel="stylesheet" href="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="//code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -19,6 +17,8 @@
     <script src="/static/scripts/prefetch.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/styles/typeahead.css">
     <!-- end Typeahead -->
+    <script src="/static/scripts/custom.js"></script>
+    <script src="/static/scripts/plugin.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/styles/custom.css">
     <script>
         var siteName = "seebirds";
@@ -62,10 +62,10 @@
                 var data = "";
 
                 if (toPage == "checklists") {
-                    //removeTypeaheadBgColorStyle("typeahead-checklists");
+                    removeTypeaheadBgColorStyle("typeahead-checklists");
                 }
                 if (toPage == "notables") {
-                    //removeTypeaheadBgColorStyle("typeahead-notables");
+                    removeTypeaheadBgColorStyle("typeahead-notables");
                 }
                 if (toPage == "submissions") {
                     data = getChecklistSubmissions(selectedData.region, selectMessageChecklistSubmissions);

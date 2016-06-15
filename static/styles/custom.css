@@ -72,7 +72,7 @@ div #info {
 }
 
 .navImagePosition {
-    height: 65vh;
+    height: 90vh;
     padding: 1em 0 0 1em;
 }
 
@@ -104,9 +104,13 @@ div #info {
 }
 
 .ui-page {
-    background: transparent;
+    /*background: transparent;*/
 }
 .ui-content {
     background: transparent;
 }
 /**======== END IMAGE BACKGROUNDS ========**/
+.ui-li-divider {
+    font-size: medium !important;
+}
+
