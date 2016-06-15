@@ -1,3 +1,6 @@
+# test scripts
+*/test*
+
 # pythonanywhere specific cache files
 *.cpython-35.pyc
 
