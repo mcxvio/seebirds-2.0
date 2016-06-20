@@ -1,6 +1,11 @@
+*.bak
+
 # test scripts
 */test.*
 */test_*
+
+#c9
+.~c9_invoke_57Ppp1.py
 
 # pythonanywhere specific cache files
 *.cpython-35.pyc
