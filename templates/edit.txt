@@ -1,0 +1,8 @@
+        <!-- iterate through nested items nested under date -->
+            <li class="ui-li-static ui-body-inherit">
+                {{ speciesCount }} species
+                @
+                <a href="/#location" class="gotoLocation" title="{{ item.locID }}" target="_self">{{ item.locName }}</a>
+                @
+        		{{ item.obsDt|getdatetime('t') }}
+            </li>

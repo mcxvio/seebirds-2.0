@@ -1,0 +1,17 @@
+<ul data-role="listview" class="ui-listview">
+    {% set chkCount = data[data|length-1].chkCount %}
+    <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ chkCount }} checklists for {{ region }} in last 5 days.</li>
+    {% for item in data %}
+        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ item.obsDt }}</li>
+        {% for checklist in item.checklists %}
+            <li class="ui-li-static ui-body-inherit">
+                {{ checklist.speciesCount }} species
+                @
+                <a href="/#location" class="gotoLocation" title="{{ checklist.locID }}" target="_self">{{ checklist.locName }}</a>
+                @
+        		{{ checklist.obsTm }}
+            </li>
+        {% endfor %}
+    {% endfor %}
+    <li class="ui-li-static ui-body-inherit">&nbsp;</li>
+</ul>
