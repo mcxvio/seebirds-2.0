@@ -4,12 +4,13 @@ from flask import Flask
 from flask import render_template
 
 app = Flask(__name__)
-'''
+app.config.from_pyfile('app.cfg')
+
 @app.template_filter('getdatetime')
 def datetimeformatter(value, dateortime):
     return reformat.extractDateTime(value, dateortime)
 app.jinja_env.filters['getdatetime'] = datetimeformatter
-'''
+
 @app.route('/')
 @app.route('/index.html')
 def index():
@@ -44,5 +45,10 @@ def get_species(region, fullName):
     data = recent.region_species_obs(region, fullName)
     return render_template('species_results.html', data=data, name=fullName)
 
+@app.route("/test")
+def test():
+    return "<strong>It's Alive!</strong>"
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(app.config['IP'], app.config['PORT'])
+    #app.run(debug=True)
