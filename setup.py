@@ -6,5 +6,5 @@ setup(name='murmuration',
       author='Marcus Hunt',
       author_email='mrhapi@outlook.com',
       url='http://www.python.org/sigs/distutils-sig/',
-      install_requires=['Flask>=0.10.1'],
+      install_requires=['Flask>=0.10.1','requests']
      )
