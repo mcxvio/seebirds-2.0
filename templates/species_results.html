@@ -1,21 +1,27 @@
 <ul data-role="listview" class="ui-listview">
-    <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">
-        {{ data|length }} sightings of <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a> in last 10 days.
-    </li>
-    {% set prevdate = "" %}
-    {% for item in data %}
-        {% set obsdate = item.obsDt|getdatetime('d') %}
-        {% if prevdate != obsdate %}
-            <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ obsdate }}</li>
-            {% set prevdate = obsdate %}
-        {% endif %}
-        <li class="ui-li-static ui-body-inherit">
-            {{ item.howMany }}
-            @
-            <a href="/#location" class="gotoLocation" title="{{ item.locID }}" target="_self">{{ item.locName }}</a>
-            @
-    		{{ item.obsDt|getdatetime('t') }}
+    {% if "errorMsg" in data[0] %}
+        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">
+            {{ data[0]["errorMsg"] }}
         </li>
-    {% endfor %}
-    <li class="ui-li-static ui-body-inherit">&nbsp;</li>
+    {% else %}
+        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">
+            {{ data|length }} sightings of <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a> in last 10 days.
+        </li>
+        {% set prevdate = "" %}
+        {% for item in data %}
+            {% set obsdate = item.obsDt|getdatetime('d') %}
+            {% if prevdate != obsdate %}
+                <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ obsdate }}</li>
+                {% set prevdate = obsdate %}
+            {% endif %}
+            <li class="ui-li-static ui-body-inherit">
+                {{ item.howMany }}
+                @
+                <a href="/#location" class="gotoLocation" title="{{ item.locID }}" target="_self">{{ item.locName }}</a>
+                @
+        		{{ item.obsDt|getdatetime('t') }}
+            </li>
+        {% endfor %}
+        <li class="ui-li-static ui-body-inherit">&nbsp;</li>
+    {% endif %}
 </ul>

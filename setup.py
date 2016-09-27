@@ -1,6 +1,6 @@
 from setuptools import setup
 
-setup(name='murmuration',
+setup(name='mobicomp',
       version='1.0',
       description='OpenShift App',
       author='Marcus Hunt',
