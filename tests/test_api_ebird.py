@@ -2,8 +2,8 @@
 import sys
 import unittest
 #sys.path.insert(1, '/home/mrhapi/murmuration')
-sys.path.insert(0, '/Users/marcus.hunt/Sites/murmuration')
-sys.path.insert(0, '/Users/marcus.hunt/Sites/murmuration/apis')
+sys.path.insert(0, '/Users/marcus.hunt/Sites/seebirds_py3')
+sys.path.insert(0, '/Users/marcus.hunt/Sites/seebirds_py3/apis')
 
 print(sys.path)
 
