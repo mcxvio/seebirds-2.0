@@ -46,15 +46,19 @@ def add_checklists_for_date(add_date, checklists, submission, submissions):
 
 def extract_region_code(region):
     """ Extract the region between the brackets in the selected region name. """
-    region_code = region[region.find("(")+1:region.find(")")]
+    if region.find("(") > 0: #Check for brackets.
+        region_code = region[region.find("(")+1:region.find(")")]
+        return region_code
 
-    return region_code
+    return region #Pass-through.
 
 def extract_scientific_name(full_name):
     """ Extract scientific name. """
-    sci_name = full_name[full_name.find("(")+1:full_name.find(")")]
+    if full_name.find("(") > 0: #Check for brackets.
+        sci_name = full_name[full_name.find("(")+1:full_name.find(")")]
+        return sci_name
 
-    return sci_name
+    return full_name #Pass-through.
 
 def extract_region_type(subregion):
     """ Count the separating dashes of the region code. """
