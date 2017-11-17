@@ -1,6 +1,7 @@
-Flask==0.11.1
+Flask==0.12.2
 requests==2.10.0
 click==6.6
 itsdangerous==0.24
 Jinja2==2.6
-Werkzeug==0.8.3
+Werkzeug==0.12.2
+cherrypy==11.1.0

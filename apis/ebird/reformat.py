@@ -1,60 +1,67 @@
+""" Reformat functions. """
 from datetime import datetime
 
-def extractDateTime(value, dateortime):
-    obsDateTime = datetime.strptime(value, '%Y-%m-%d %H:%M')
+def extract_date_time(value, dateortime):
+    """ Extract date time. """
+    obs_date_time = datetime.strptime(value, '%Y-%m-%d %H:%M')
     if dateortime == 'dt':
-        return obsDateTime.strftime('%d-%b, %Y, %H:%M')
+        return obs_date_time.strftime('%d-%b, %Y, %H:%M')
     elif dateortime == 'd':
-        return obsDateTime.strftime('%d %B')
+        return obs_date_time.strftime('%d %B')
     elif dateortime == 'dx':
-        return obsDateTime.strftime('%Y-%m-%d')
-    else:
-        return obsDateTime.strftime('%H:%M')
+        return obs_date_time.strftime('%Y-%m-%d')
 
-def extractUniqueDateTimes(response):
-    uniqueDates = []
+    return obs_date_time.strftime('%H:%M')
+
+def extract_unique_date_times(response):
+    """ Extract unique date time. """
+    unique_dates = []
     for item in response:
-        if not item['obsDt'] in uniqueDates:
-            uniqueDates.append(item['obsDt'])
-    return uniqueDates
+        if not item['obsDt'] in unique_dates:
+            unique_dates.append(item['obsDt'])
+    return unique_dates
 
-def extractUniqueDates(response):
-    uniqueDates = []
+def extract_unique_dates(response):
+    """ Extract unique dates. """
+    unique_dates = []
     for item in response:
-        if not extractDateTime(item['obsDt'], 'dx') in uniqueDates:
-            uniqueDates.append(extractDateTime(item['obsDt'], 'dx'))
-    return uniqueDates
+        if not extract_date_time(item['obsDt'], 'dx') in unique_dates:
+            unique_dates.append(extract_date_time(item['obsDt'], 'dx'))
+    return unique_dates
 
-def removeObItems(ob):
-    del ob['sciName']
-    del ob['comName']
+def remove_ob_items(observation):
+    """ Remove observation items. """
+    del observation['sciName']
+    del observation['comName']
     #del ob['howMany']
-    del ob['obsValid']
-    del ob['obsReviewed']
+    del observation['obsValid']
+    del observation['obsReviewed']
     #return ob
 
-def addChecklistsForDate(addDate, checklists, submission, submissions):
-    submission['obsDt'] = addDate
+def add_checklists_for_date(add_date, checklists, submission, submissions):
+    """ Add checklists for date. """
+    submission['obsDt'] = add_date
     submission['checklists'] = checklists
     submissions.append(submission)
 
-# Extract the region between the brackets in the selected region name.
-def extractRegionCode(region):
-    regionCode = region[region.find("(")+1:region.find(")")]
+def extract_region_code(region):
+    """ Extract the region between the brackets in the selected region name. """
+    region_code = region[region.find("(")+1:region.find(")")]
 
-    return regionCode
+    return region_code
 
-def extractScientificName(fullName):
-    sciName = fullName[fullName.find("(")+1:fullName.find(")")]
+def extract_scientific_name(full_name):
+    """ Extract scientific name. """
+    sci_name = full_name[full_name.find("(")+1:full_name.find(")")]
 
-    return sciName
+    return sci_name
 
-# Count the separating dashes of the region code.
-def extractRegionType(subregion):
-	if (len(subregion) == 3):
-		subregion = subregion[0:2] #"US-" to "US".
-		return "country"
-	elif (subregion.count("-") == 2):
-		return "subnational2"
+def extract_region_type(subregion):
+    """ Count the separating dashes of the region code. """
+    if len(subregion) == 3:
+        subregion = subregion[0:2] #"US-" to "US".
+        return "country"
+    elif subregion.count("-") == 2:
+        return "subnational2"
 
-	return "subnational1"
+    return "subnational1"

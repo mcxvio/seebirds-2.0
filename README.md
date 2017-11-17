@@ -1,4 +1,4 @@
-# seebirds-py
+# seebirds-py3
 eBird 1.1 inquirer: python flask version
 
 - Twitter Typeahead and Bloodhound for autocomplete;
