@@ -49,11 +49,16 @@ def get_location(location_id):
     return render_template('location_results.html', data=data)
 
 # species
-@app.route('/species/<string:region>/<string:fullName>', methods=['GET'])
+@app.route('/species/<string:region>/<string:full_name>', methods=['GET'])
 def get_species(region, full_name):
     """ Show species page. """
     data = recent.region_species_obs(region, full_name)
     return render_template('species_results.html', data=data, name=full_name)
+
+@app.route("/jasmine")
+def jasmine():
+    """ Show test page. """
+    return app.send_static_file('tests/jasmine/SpecRunner.html')
 
 @app.route("/test")
 def test():

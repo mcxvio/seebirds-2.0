@@ -42,7 +42,11 @@ def hotspot_obs(location_id):
                             + location_id
                             + "&detail=full&includeProvisional=true&back=10&fmt=json")
 
-    assert response.status_code == 200
+    if response.status_code == 400:
+        # Bad gateway for invalid data, extract error message.
+        assert response.status_code == 400
+    else:
+        assert response.status_code == 200
 
     return response.text
 

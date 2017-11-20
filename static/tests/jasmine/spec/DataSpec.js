@@ -1,31 +1,3 @@
-/*
-describe("Get subregion between brackets", function() {
-  it("returns a region code", function() {
-
-    var region = "Suffolk (US-MA-025)";
-    var result = "US-MA-025";
-
-    expect(getSubRegionFromSelection(region)).toEqual(result);
-  });
-});
-
-describe("Get region type from subregion", function() {
-    it("returns country", function() {
-        var regionCountry = "US-";
-        expect(getRegionTypeFromSubRegion(regionCountry)).toEqual("country");
-    });
-
-    it("returns state", function() {
-        var regionState = "US-MA";
-        expect(getRegionTypeFromSubRegion(regionState)).toEqual("subnational1");
-    });
-
-    it("returns county", function() {
-        var regionCounty = "US-MA-025";
-        expect(getRegionTypeFromSubRegion(regionCounty)).toEqual("subnational2");
-   });
-});
-*/
 describe("Get an unordered list and its items", function() {
   var val;
   beforeAll(function() {
@@ -71,57 +43,7 @@ describe("Get an unordered list and its items", function() {
     expect(html).toEqual(jasmine.stringMatching('/ul'));
   });
 });
-/*
-describe("Get api urls", function() {
-   it("returns url to retrieve checklist submission data", function() {
 
-        var region = "United States (US-)";
-        var url = getChecklistSubmissionUrl(region);
-        //ebird.org/ws1.1/data/obs/region/recent?rtype=subnational2&r=US-MA-025&hotspot=true&includeProvisional=true&back=5&fmt=json
-
-        expect(url).toEqual(jasmine.stringMatching('ebird.org/ws1.1/data/obs/region/recent'));
-        expect(url).toEqual(jasmine.stringMatching('rtype=country'));
-        expect(url).toEqual(jasmine.stringMatching('r=US'));
-        expect(url).toEqual(jasmine.stringMatching('hotspot=true&includeProvisional=true&back=5&fmt=json'));
-   });
-
-   it("returns url to retrieve notable sightings data", function() {
-
-        var region = "Massachusetts (US-MA)";
-        var url = getNotableSightingsUrl(region);
-        //ebird.org/ws1.1/data/notable/region/recent?rtype=subnational1&r=US-MA&detail=full&hotspot=true&back=5&fmt=json
-
-        expect(url).toEqual(jasmine.stringMatching('ebird.org/ws1.1/data/notable/region/recent'));
-        expect(url).toEqual(jasmine.stringMatching('rtype=subnational1'));
-        expect(url).toEqual(jasmine.stringMatching('r=US-MA'));
-        expect(url).toEqual(jasmine.stringMatching('detail=full&hotspot=true&back=5&fmt=json'));
-   });
-
-   it("returns url to retrieve location submission data", function() {
-
-        var locationId = "L248222";
-        var url = getLocationSubmissionsUrl(locationId);
-        //ebird.org/ws1.1/data/obs/hotspot/recent?r=L248222&detail=full&includeProvisional=true&back=10&fmt=json
-
-        expect(url).toEqual(jasmine.stringMatching('ebird.org/ws1.1/data/obs/hotspot/recent'));
-        expect(url).toEqual(jasmine.stringMatching('r=' + locationId));
-        expect(url).toEqual(jasmine.stringMatching('detail=full&includeProvisional=true&back=10&fmt=json'));
-   });
-
-   it("returns url to retrieve species sightings data", function() {
-
-        var region = "Suffolk (US-MA-025)";
-        var scientificName = "Hirundo rustica";
-        var url = getSpeciesSightingsUrl(region, scientificName);
-        //ebird.org/ws1.1/data/obs/region_spp/recent?rtype=subnational2&r=US-MA-025&sci=Hirundo rustica&hotspot=true&includeProvisional=true&back=10&fmt=json
-
-        expect(url).toEqual(jasmine.stringMatching('ebird.org/ws1.1/data/obs/region_spp/recent'));
-        expect(url).toEqual(jasmine.stringMatching('rtype=subnational2'));
-        expect(url).toEqual(jasmine.stringMatching('r=US-MA-025'));
-        expect(url).toEqual(jasmine.stringMatching('hotspot=true&includeProvisional=true&back=10&fmt=json'));
-   });
-});
-*/
 describe("Get data html output", function() {
    it("returns correctly formatted checklist submission data", function() {
         var region = "Suffolk (US-MA-025)";
@@ -153,29 +75,29 @@ describe("Get error message from json", function() {
     var html = "";
     var region = "Massachusetts (US-MA)";
     var badregion = "Somesuch (XX-XX)";
-    var scientificName = "Hrundo rustica";
-    var locationId = "LXXXXXX";//"L248222";
+    var badsciname = "Xxxxx xxxxxxx";
+    var badlocid = "LXXXXXX";//"L248222";
   beforeAll(function() {
     console.log(html);
   });
 
-    it("returns correctly formatted species data" + html, function() {
+    it("returns correctly formatted no checklists for bad region" + html, function() {
         html = getChecklistSubmissions(badregion);
-        expect(html).toBe("");
+        expect(html.indexOf('0 checklists') !== -1).toBe(true);
     });
 
-    it("returns nothing for a bad region" + html, function() {
+    it("returns correctly formatted no notable sightings for a bad region" + html, function() {
         html = getNotableSightings(badregion, "message");
-        expect(html).toBe("");
+        expect(html.indexOf('0 notable species') !== -1).toBe(true);
     });
 
-    it("returns nothing for bad location data" + html, function() {
-        html = getLocationSubmissions(locationId);
-        expect(html).toBe("");
+    it("returns no data message for bad location data" + html, function() {
+        html = getLocationSubmissions(badlocid);
+        expect(html.indexOf('No data found') !== -1).toBe(true);
     });
 
     it("returns correctly formatted no species data found message" + html, function() {
-        html = getSpeciesSightings(region, scientificName);
+        html = getSpeciesSightings(region, badsciname);
         expect(html).not.toBe("");
     });
 });
