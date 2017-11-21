@@ -9,6 +9,7 @@ print(sys.path)
 
 from apis.ebird import recent
 from apis.ebird import reformat
+from time import gmtime, strftime
 
 class EbirdTestCase(unittest.TestCase):
 
@@ -80,6 +81,13 @@ class EbirdTestCase(unittest.TestCase):
         print("test_invalid_region_species_obs response = ", response)
         self.assertEqual(str(response), "[{'errorCode': 'error.data.unknown_species',"
                          + " 'errorMsg': 'Unknown species: Sci name'}]")
+
+    def test_date_formatting_options(self):
+        """" Datetime returned when passing datetime and format parameter """
+        dateortime = 'da'
+        value = "2017-11-21 17:07"
+        response = reformat.extract_date_time(value, dateortime)
+        self.assertEqual(response, "Tuesday 21 November")
 
 
 if __name__ == '__main__':

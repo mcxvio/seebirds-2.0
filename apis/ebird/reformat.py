@@ -6,6 +6,8 @@ def extract_date_time(value, dateortime):
     obs_date_time = datetime.strptime(value, '%Y-%m-%d %H:%M')
     if dateortime == 'dt':
         return obs_date_time.strftime('%d-%b, %Y, %H:%M')
+    elif dateortime == 'da':
+        return obs_date_time.strftime('%A %d %B')
     elif dateortime == 'd':
         return obs_date_time.strftime('%d %B')
     elif dateortime == 'dx':

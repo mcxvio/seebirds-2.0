@@ -1,15 +1,14 @@
 <ul data-role="listview" class="ui-listview">
     {% if "errorMsg" in data[0] %}
-        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">
-            {{ data[0]["errorMsg"] }}
-        </li>
+        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ data[0]["errorMsg"] }}</li>
     {% else %}
         <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">
-            {{ data|length }} sightings of <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a> in last 10 days.
+            <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a>
+            <br>{{ data|length }} sightings in last 10 days.
         </li>
         {% set prevdate = "" %}
         {% for item in data %}
-            {% set obsdate = item.obsDt|getdatetime('d') %}
+            {% set obsdate = item.obsDt|getdatetime('da') %}
             {% if prevdate != obsdate %}
                 <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ obsdate }}</li>
                 {% set prevdate = obsdate %}
