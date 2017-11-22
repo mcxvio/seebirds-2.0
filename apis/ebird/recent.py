@@ -27,7 +27,7 @@ def region_obs(region):
     curr_date = ""
     check_count = 0
     for item in unique_date_times:
-        curr_date = reformat.extract_date_time(item, 'd')
+        curr_date = reformat.extract_date_time(item, 'da')
         if prev_date == "":
             prev_date = curr_date
         if prev_date != curr_date:

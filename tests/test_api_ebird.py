@@ -82,7 +82,7 @@ class EbirdTestCase(unittest.TestCase):
         self.assertEqual(str(response), "[{'errorCode': 'error.data.unknown_species',"
                          + " 'errorMsg': 'Unknown species: Sci name'}]")
 
-    def test_date_formatting_options(self):
+    def test_datetime_formatting_options(self):
         """" Datetime returned when passing datetime and format parameter """
         dateortime = 'da'
         value = "2017-11-21 17:07"
