@@ -3,7 +3,11 @@ from datetime import datetime
 
 def extract_date_time(value, dateortime):
     """ Extract date time. """
-    obs_date_time = datetime.strptime(value, '%Y-%m-%d %H:%M')
+    if len(value) == 10:
+        obs_date_time = datetime.strptime(value, '%Y-%m-%d')
+    else:
+        obs_date_time = datetime.strptime(value, '%Y-%m-%d %H:%M')
+
     if dateortime == 'dt':
         return obs_date_time.strftime('%d-%b, %Y, %H:%M')
     elif dateortime == 'da':

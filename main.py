@@ -3,11 +3,15 @@ Main entry to application.
 """
 from apis.ebird import recent
 from apis.ebird import reformat
+from apis.ebird import previous_regions as searches
 from flask import Flask
 from flask import render_template
+from flask import redirect
+from flask import request
 
 app = Flask(__name__)
 app.config.from_pyfile('app.cfg')
+previous_url = ""
 
 @app.template_filter('getdatetime')
 def datetimeformatter(value, dateortime):
@@ -27,10 +31,23 @@ def outdoors():
     """ Show outdoors page. """
     return app.send_static_file('outdoors.html')
 
+# previous regions searched
+@app.route('/previous_regions', methods=['GET'])
+def get_previous_region_searches():
+    """ Show previous regions searched for. """
+    data = searches.get_previous_regions()
+    return render_template('previous_regions.html', data=data)
+
+@app.route('/clear_previous_regions', methods=['GET'])
+def clear_previous_region_searches():
+    searches.clear_previous_regions()
+    return redirect("/")
+
 # checklists
 @app.route('/checklists/<string:region>', methods=['GET'])
 def get_checklists(region):
     """ Show checklists. """
+    searches.save_previous_region(region)
     data = recent.region_obs(region)
     return render_template('submissions_results.html', data=data, region=region)
 
@@ -38,6 +55,7 @@ def get_checklists(region):
 @app.route('/notables/<string:region>', methods=['GET'])
 def get_notables(region):
     """ Show notable sightings page. """
+    searches.save_previous_region(region)
     data = recent.region_notable(region)
     return render_template('sightings_results.html', data=data, region=region)
 

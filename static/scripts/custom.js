@@ -3,13 +3,13 @@ function removeTypeaheadBgColorStyle(elementId) {
 		var element = document.getElementById(elementId);
 		// Check the element's style object and background property are available.
 	 	if ((element.style)&& (element.style.backgroundColor != null)) {
-            element.style.backgroundColor = null;
+					element.style.backgroundColor = null;
   		}else {
-			// Property is not assigned or is not supported.
-			return;
+					// Property is not assigned or is not supported.
+					return;
   		}
 	} else {
-	  return;
+	  	return;
 	}
 }
 
@@ -19,19 +19,16 @@ function getChecklistSubmissions(region, message) {
         return formatResponseMessage(message);
     }
 
-	var url = '/checklists/' + region;
-	var data = $.getValues(url, "json");
-    /*var output = "";
-    if (data.length > 0) {
-		if (data.indexOf("errorMsg") > 0) {
-			var errorMsg = extractErrorMessage(data);
-			output = formatResponseMessage(errorMsg);
-		} else {
-	        output = getChecklistsHtml(data, region);
-		}
-    }
-    return output;*/
+		var url = '/checklists/' + region;
+		var data = $.getValues(url, "json");
+
     return data;
+}
+
+function getPreviousRegions() {
+		var url = '/previous_regions';
+		var data = $.getValues(url, "json");
+		return data;
 }
 
 function getNotableSightings(region, message) {
@@ -39,18 +36,9 @@ function getNotableSightings(region, message) {
         return formatResponseMessage(message);
     }
 
-	var url = '/notables/' + region;
-	var data = $.getValues(url, "json");
-    /*var output = "";
-    if (data.length > 0) {
-		if (data.indexOf("errorMsg") > 0) {
-			var errorMsg = extractErrorMessage(data);
-			output = formatResponseMessage(errorMsg);
-		} else {
-        	output = getNotablesHtml(data, region);
-		}
-    }
-    */
+		var url = '/notables/' + region;
+		var data = $.getValues(url, "json");
+
     return data;
 }
 
@@ -61,17 +49,7 @@ function getLocationSubmissions(locationId) {
 
 	var url = '/location/' + locationId;
 	var data = $.getValues(url, "json");
-    /*var output = "";
-    if (data.length > 0) {
-		if (data.indexOf("errorMsg") > 0) {
-			var errorMsg = extractErrorMessage(data);
-			output = formatResponseMessage(errorMsg);
-		} else {
-	        output = getLocationHtml(data, locationId);
-		}
-    }
-    return output;
-    */
+
 	return data;
 }
 
@@ -82,17 +60,7 @@ function getSpeciesSightings(region, fullSpeciesName) {
 
 	var url = '/species/' + region + '/' + fullSpeciesName;
 	var data = $.getValues(url, "json");
-    /*var output = "";
-    if (data.length > 0) {
-		if (data.indexOf("errorMsg") > 0) {
-			var errorMsg = extractErrorMessage(data);
-			output = formatResponseMessage(errorMsg);
-		} else {
-	        output = getSpeciesHtml(data, region);
-		}
-    }
-    return output;
-    */
+
 	return data;
 }
 

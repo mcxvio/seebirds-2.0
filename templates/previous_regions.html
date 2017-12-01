@@ -1,0 +1,11 @@
+{% if data != None and data|length > 0 %}
+    <ul data-role="listview" class="ui-listview">
+        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">Previous Searches:</li>
+        {% for item in data %}
+            {% if item != None %}
+                <li><a href="/checklists#submissions" class="gotoRegion ui-btn ui-btn-icon-right ui-icon-carat-r">{{ item.decode('utf-8') }}</a></li>
+            {% endif %}
+        {% endfor %}
+        <li class="ui-li-static ui-body-inherit"><a href="/clear_previous_regions">[Clear]</a></li>
+    </ul>
+{% endif %}
