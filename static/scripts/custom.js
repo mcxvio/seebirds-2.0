@@ -25,8 +25,8 @@ function getChecklistSubmissions(region, message) {
     return data;
 }
 
-function getPreviousRegions() {
-		var url = '/previous_regions';
+function getPreviousRegions(page) {
+		var url = '/previous_regions/' + page;
 		var data = $.getValues(url, "json");
 		return data;
 }

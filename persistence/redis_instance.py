@@ -1,15 +1,21 @@
 """
 Return previous searches from repository.
 """
+import os
 import redis
 
 def get_connection():
+
     r = None
     try:
+        REDIS_SERVICE_HOST = os.environ.get('REDIS_SERVICE_HOST', 'localhost')
+        REDIS_SERVICE_PORT = os.environ.get('REDIS_SERVICE_PORT', '6379')
+        REDIS_SERVICE_PASS = os.environ.get('database-password', '')
+
         r = redis.Redis(
-            host='localhost',
-            port=6379)
-            #, password='password')
+            host=REDIS_SERVICE_HOST,
+            port=REDIS_SERVICE_PORT,
+            password=REDIS_SERVICE_PASS)
         r.ping()
     except redis.exceptions.ConnectionError:
         r = None

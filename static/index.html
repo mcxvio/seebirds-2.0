@@ -21,7 +21,7 @@
     <script src="/static/scripts/plugin.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/styles/custom.css">
     <script>
-        var siteName = "...";
+        var siteName = "seebirds online";
         var noDataFound = "No data found, please <a href='#' data-rel='back'>search again</a>.";
         var selectMessageChecklistSubmissions = "<a href='#nav-panel-checklist-sightings'>Select</a> from Checklists or Notables to search State or County sightings.";
         var selectMessageNotableSightings = "<a href='#nav-panel-notable-sightings'>Select</a> from Checklists or Notables to search State or County sightings.";
@@ -31,21 +31,21 @@
                 $.spinner();
             });
 
-    		$( document ).on( "pagecreate", function() {
-    			$( "#theme-selector input" ).on( "change", function( event ) {
-    				var themeClass = $( "#theme-selector input:checked" ).attr( "id" );
-    				$( "#home" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#checklists" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#submissions" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#notables" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#sightings" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#location" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#species" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#settings" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( "#prefetch-checklists").removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
-    				$( ".theme" ).text( themeClass );
-    			});
-    		});
+        		$( document ).on( "pagecreate", function() {
+        			$( "#theme-selector input" ).on( "change", function( event ) {
+        				var themeClass = $( "#theme-selector input:checked" ).attr( "id" );
+        				$( "#home" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#checklists" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#submissions" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#notables" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#sightings" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#location" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#species" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#settings" ).removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( "#prefetch-checklists").removeClass( "ui-page-theme-a ui-page-theme-b" ).addClass( "ui-page-theme-" + themeClass );
+        				$( ".theme" ).text( themeClass );
+        			});
+        		});
 
             var selectedData = { region: "", locId: "", locName: "", sciName: "", comName: "", fullSpeciesName: "", startPage: "" };
 
@@ -64,12 +64,12 @@
                 if (toPage == "checklists") {
                     removeTypeaheadBgColorStyle("typeahead-checklists");
                     // Retrieve previous search data.
-                    $(page + " #previous-regions").html(getPreviousRegions())
+                    $(page + " #previous-regions").html(getPreviousRegions(toPage))
                 }
                 if (toPage == "notables") {
                     removeTypeaheadBgColorStyle("typeahead-notables");
                     // Retrieve previous search data.
-                    $(page + " #previous-regions").html(getPreviousRegions())
+                    $(page + " #previous-regions").html(getPreviousRegions(toPage))
                 }
                 if (toPage == "submissions") {
                     data = getChecklistSubmissions(selectedData.region, selectMessageChecklistSubmissions);

@@ -8,9 +8,13 @@ from flask import Flask
 from flask import render_template
 from flask import redirect
 from flask import request
+# session management
+from flask import Flask, session
+from flask_session import Session
 
 app = Flask(__name__)
 app.config.from_pyfile('app.cfg')
+
 previous_url = ""
 
 @app.template_filter('getdatetime')
@@ -32,11 +36,12 @@ def outdoors():
     return app.send_static_file('outdoors.html')
 
 # previous regions searched
-@app.route('/previous_regions', methods=['GET'])
-def get_previous_region_searches():
+@app.route('/previous_regions/<string:to_page>', methods=['GET'])
+def get_previous_region_searches(to_page):
     """ Show previous regions searched for. """
     data = searches.get_previous_regions()
-    return render_template('previous_regions.html', data=data)
+    page = 'submissions' if to_page == 'checklists' else 'sightings'
+    return render_template('previous_regions.html', data=data, page=page)
 
 @app.route('/clear_previous_regions', methods=['GET'])
 def clear_previous_region_searches():
@@ -47,6 +52,7 @@ def clear_previous_region_searches():
 @app.route('/checklists/<string:region>', methods=['GET'])
 def get_checklists(region):
     """ Show checklists. """
+    previous_url = "checklists"
     searches.save_previous_region(region)
     data = recent.region_obs(region)
     return render_template('submissions_results.html', data=data, region=region)
@@ -55,6 +61,7 @@ def get_checklists(region):
 @app.route('/notables/<string:region>', methods=['GET'])
 def get_notables(region):
     """ Show notable sightings page. """
+    previous_url = "notables"
     searches.save_previous_region(region)
     data = recent.region_notable(region)
     return render_template('sightings_results.html', data=data, region=region)
@@ -85,5 +92,9 @@ def test():
 
 
 if __name__ == '__main__':
+    app.secret_key = app.config['SECRET_KEY']
+    SESSION_TYPE = 'redis'
+    Session(app)
+
     app.run(app.config['IP'], app.config['PORT'])
     #app.run(debug=True)
