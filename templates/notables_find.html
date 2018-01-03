@@ -1,8 +1,18 @@
 {% extends "base.html" %}
 {% block title %}notables{% endblock %}
+{% block head %}
+        <!-- Typeahead -->
+        <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="/static/scripts/prefetch.js"></script>
+        <script src="/static/scripts/typeahead.min.js/typeahead.bundle.min.js"></script>
+        <script src="/static/scripts/typeahead.min.js/typeahead.jquery.min.js"></script>
+        <script src="/static/scripts/typeahead.min.js/bloodhound.min.js"></script>
+        <!-- End Typeahead -->
+{% endblock %}
 {% block content %}
-<p>
-    Search region:<br>
-    <a href="/notables/US-MA-025">US-MA-025</a>
-</p>
+    <div id="prefetch-find">
+        <!-- Typeahead -->
+        <input autofocus class="typeahead" type="text" placeholder="Search State or County" />
+    </div>
+    <br>
 {% endblock %}

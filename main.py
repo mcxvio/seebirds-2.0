@@ -66,6 +66,11 @@ def get_species(region, full_name):
     data = recent.region_species_obs(region, full_name)
     return render_template('species_results.html', data=data, region=region, name=full_name)
 
+# providers
+@app.route('/providers', methods=['GET'])
+def get_providers():
+    return render_template('providers.html')
+
 #@app.route("/jasmine")
 #def jasmine():
 #    """ Show test page. """

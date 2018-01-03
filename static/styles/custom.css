@@ -73,7 +73,7 @@ div #info {
 }
 
 .checklistNavImage, #prefetch-checklists {
-    background: url(/static/images/IMG_20150517_2859.jpg);
+    background: url(x/static/images/IMG_20150517_2859.jpg);
     background-repeat: repeat-y;
     background-position: center center;
     background-attachment: scroll;
@@ -81,7 +81,7 @@ div #info {
 }
 
 .notablesNavImage, #prefetch-notables {
-    background: url(/static/images/IMG_20151121_4702.jpg);
+    background: url(x/static/images/IMG_20151121_4702.jpg);
     background-repeat: repeat-y;
     background-position: center center;
     background-attachment: scroll;
@@ -89,7 +89,7 @@ div #info {
 }
 
 .settingsNavImage, #main-settings {
-    background: url(/static/images/IMG_20151121_4680.jpg);
+    background: url(x/static/images/IMG_20151121_4680.jpg);
     background-repeat: repeat-y;
     background-position: center center;
     background-attachment: scroll;
