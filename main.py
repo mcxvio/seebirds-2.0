@@ -3,7 +3,7 @@ Main entry to application.
 """
 from apis.ebird import recent
 from apis.ebird import reformat
-from apis.ebird import previous_regions as searches
+from apis.ebird import regions as searches
 from flask import Flask
 from flask import render_template
 from flask import redirect
@@ -21,15 +21,13 @@ def datetimeformatter(value, dateortime):
     return reformat.extract_date_time(value, dateortime)
 app.jinja_env.filters['getdatetime'] = datetimeformatter
 
-@app.route('/')
-@app.route('/index.html')
+@app.route('/', methods=['GET'])
 def index():
     """ Show index page. """
-    return 'Welcome :: data analysis!' + '<br><a href="/checklists">checklists</a>' + '<br><a href="/notables">notables</a>'
-    #return app.send_static_file('index.html')
+    return render_template('home.html')
 
 # checklists
-@app.route('/checklists')
+@app.route('/checklists', methods=['GET'])
 def get_checklist_search():
     """ Show checklist search page. """
     return render_template('checklists_find.html')
@@ -42,7 +40,7 @@ def get_checklists(region):
     return render_template('checklists_results.html', data=data, region=region)
 
 # notables
-@app.route('/notables')
+@app.route('/notables', methods=['GET'])
 def get_notables_search():
     """ Show notables search page. """
     return render_template('notables_find.html')

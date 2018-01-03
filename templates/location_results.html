@@ -1,25 +1,28 @@
-<ul data-role="listview" class="ui-listview">
-    {% if data|length == 0 %}
-        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">No data found: check location.</li>
-    {% else %}
-        <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">
-            <a href="http://ebird.org/ebird/hotspot/{{ data[0].locID }}" target="_blank" class="external">{{ data[0].locName }}</a>
-            <br>{{ data|length }} species in last 10 days.
-        </li>
-        {% set prevdate = "" %}
-        {% for item in data %}
-            {% set obsdate = item.obsDt|getdatetime('da') %}
-            {% if prevdate != obsdate %}
-                <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ obsdate }}</li>
-                {% set prevdate = obsdate %}
-            {% endif %}
-            <li class="ui-li-static ui-body-inherit">
-                {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.sciName }})" target="_self">{{ item.comName }}</a>
-                <br>
-        		    <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
-                -- {{ item.userDisplayName }}
+{% extends "base.html" %}
+{% block title %}location{% endblock %}
+{% block content %}
+    <ul>
+        {% if data|length == 0 %}
+            <li>No data found: check location.</li>
+        {% else %}
+            <li>
+                <a href="http://ebird.org/ebird/hotspot/{{ data[0].locID }}" target="_blank" class="external">{{ data[0].locName }}</a>
+                <br>{{ data|length }} species in last 10 days.
             </li>
-        {% endfor %}
-        <li class="ui-li-static ui-body-inherit">&nbsp;</li>
-    {% endif %}
-</ul>
+            {% set prevdate = "" %}
+            {% for item in data %}
+                {% set obsdate = item.obsDt|getdatetime('da') %}
+                {% if prevdate != obsdate %}
+                    <li>{{ obsdate }}</li>
+                    {% set prevdate = obsdate %}
+                {% endif %}
+                <li>
+                    {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.sciName }})" target="_self">{{ item.comName }}</a>
+                    <br>
+                        <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
+                    -- {{ item.userDisplayName }}
+                </li>
+            {% endfor %}
+        {% endif %}
+    </ul>
+{% endblock %}

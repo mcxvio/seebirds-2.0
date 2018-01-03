@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head %}
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>seebirds :: {% block title %}{% endblock %}</title>
+        <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
+        <link rel="stylesheet" type="text/css" href="/static/styles/custom.css">
+        <script>
+                function initialize() {
+                    document.getElementById("year").innerHTML = (new Date()).getFullYear()
+                }
+        </script>
+        {% endblock %}
+    </head>
+    <body onload="initialize()">
+        <div id="content">
+            {% if request.path != '/' %}
+                <p><a href="/">home</a></p>
+            {% endif %}
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div id="footer">
+            {% block footer %}
+            &copy <span id="year"></span> M Hunt. Data by <a href="http://www.ebird.org" target="_blank" class="external">eBird</a>.
+            {% endblock %}
+        </div>
+    </body>
+</html>
