@@ -10,7 +10,7 @@ import os
 import sys
 
 try:
-    VIRT_ENV = os.path.join(os.environ.get('OPENSHIFT_PYTHON_DIR', '.'), 'virtenv')
+    VIRT_ENV = os.path.join(os.environ.get('PYTHON_DIR', '.'), 'virtenv')
     PYTHON_VERSION = "python"+str(sys.version_info[0])+"."+str(sys.version_info[1])
     os.environ['PYTHON_EGG_CACHE'] = os.path.join(VIRT_ENV, 'lib', PYTHON_VERSION, 'site-packages')
     VIRTUAL_ENV = os.path.join(VIRT_ENV, 'bin', 'activate_this.py')

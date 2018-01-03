@@ -5,11 +5,10 @@
         <li data-role="list-divider" role="heading" class="ui-li-divider ui-body-inherit">{{ item.obsDt }}</li>
         {% for checklist in item.checklists %}
             <li class="ui-li-static ui-body-inherit">
-                <a href="/#location" class="gotoLocation" title="{{ checklist.locID }}" target="_self">{{ checklist.locName }}</a>
+                <a href="/location/{{ region }}/{{ checklist.locID }}" target="_self">{{ checklist.locName }}</a>
                 <br>
                 {{ checklist.obsTm }} -- {{ checklist.speciesCount }} species
             </li>
         {% endfor %}
     {% endfor %}
-    <li class="ui-li-static ui-body-inherit">&nbsp;</li>
 </ul>

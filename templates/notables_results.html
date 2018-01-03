@@ -8,10 +8,10 @@
             {% set prevdate = obsdate %}
         {% endif %}
         <li class="ui-li-static ui-body-inherit">
-            <a href="/#species" class="gotoSpecies" title="{{ item.comName }} ({{ item.sciName }})" target="_self">{{ item.comName }}</a>
+            <a href="/species/{{ region }}/{{ item.comName }} ({{ item.sciName }})" target="_self">{{ item.comName }}</a>
             <br>
             @
-            <a href="/#location" class="gotoLocation" title="{{ item.locID }}" target="_self">{{ item.locName }}</a>
+            <a href="/location/{{ region }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>
             <br>
     		    <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
             -- {{ item.userDisplayName }}
