@@ -4,12 +4,11 @@ Main entry to application.
 from apis.ebird import recent
 from apis.ebird import reformat
 from apis.ebird import regions as searches
-from flask import Flask
+from flask import Flask, session
 from flask import render_template
 from flask import redirect
 from flask import request
 # session management
-from flask import Flask, session
 from flask_session import Session
 
 app = Flask(__name__)
@@ -36,7 +35,7 @@ def get_checklist_search():
 def get_checklists(region):
     """ Show checklist search results. """
     searches.save_previous_region(region)
-    data = recent.region_obs(region)
+    data = recent.region_checklists(region)
     return render_template('checklists_results.html', data=data, region=region)
 
 # notables
@@ -69,6 +68,7 @@ def get_species(region, full_name):
 # providers
 @app.route('/providers', methods=['GET'])
 def get_providers():
+    """ Show providers/preferences page. """
     return render_template('providers.html')
 
 #@app.route("/jasmine")

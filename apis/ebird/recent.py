@@ -2,14 +2,23 @@
 Retrieve, format and return recent data.
 """
 import json
-from apis.ebird import raw
+from apis.ebird import requester
+from apis.ebird import requester_v1_1
 from apis.ebird import reformat
 
+### eBird 2.0 ###
+def region_checklists(region):
+    """ Latest 10 checklists submitted for the subregion """
+    subregion = reformat.extract_region_code(region)
+    response = json.loads(requester.region_checklists(subregion))
+    return reformat.extract_hotspots(response)
+
+### eBird 1.1 ###
 def region_obs(region):
     """ checklists """
     subregion = reformat.extract_region_code(region)
     rtype = reformat.extract_region_type(subregion)
-    response = json.loads(raw.region_obs(rtype, subregion))
+    response = json.loads(requester_v1_1.region_obs(rtype, subregion))
     # Wrangle the json for html template ->
     #    {
     #        "obsDt": extract_date_time(item['obsDt'], 'd'),
@@ -58,7 +67,7 @@ def region_notable_wrangle(region):
     """ Region notable wrangle. """
     subregion = reformat.extract_region_code(region)
     rtype = reformat.extract_region_type(subregion)
-    response = json.loads(raw.region_notable(rtype, subregion))
+    response = json.loads(requester_v1_1.region_notable(rtype, subregion))
 
     # Extracting the dates in the following way makes the template code simpler
     # but loses the time which needs to be displayed.
@@ -85,12 +94,12 @@ def region_notable(region):
     """ Notables """
     subregion = reformat.extract_region_code(region)
     rtype = reformat.extract_region_type(subregion)
-    response = json.loads(raw.region_notable(rtype, subregion))
+    response = json.loads(requester_v1_1.region_notable(rtype, subregion))
     return response
 
 def hotspot_obs(location_id):
     """ location; empty if location is not valid. """
-    response = json.loads(raw.hotspot_obs(location_id))
+    response = json.loads(requester_v1_1.hotspot_obs(location_id))
     # Wrangle the json for html template.
     # ...
     return response
@@ -102,5 +111,5 @@ def region_species_obs(region, full_name):
     sci_name = reformat.extract_scientific_name(full_name)
     # Wrangle the json for html template.
     # ...
-    response = json.loads(raw.region_species_obs(rtype, subregion, sci_name))
+    response = json.loads(requester_v1_1.region_species_obs(rtype, subregion, sci_name))
     return response
