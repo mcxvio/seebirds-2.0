@@ -20,6 +20,11 @@ def datetimeformatter(value, dateortime):
     return reformat.extract_date_time(value, dateortime)
 app.jinja_env.filters['getdatetime'] = datetimeformatter
 
+@app.route('/clear', methods=['GET'])
+def clear():
+    searches.clear_previous_regions()
+    return redirect("/")
+
 @app.route('/', methods=['GET'])
 def index():
     """ Show index page. """
@@ -29,7 +34,8 @@ def index():
 @app.route('/checklists', methods=['GET'])
 def get_checklist_search():
     """ Show checklist search page. """
-    return render_template('checklists_find.html')
+    previous = searches.get_previous_regions()
+    return render_template('checklists_find.html', previous=previous, page="checklists")
 
 @app.route('/checklists/<string:region>', methods=['GET'])
 def get_checklists(region):
@@ -42,7 +48,8 @@ def get_checklists(region):
 @app.route('/notables', methods=['GET'])
 def get_notables_search():
     """ Show notables search page. """
-    return render_template('notables_find.html')
+    previous = searches.get_previous_regions()
+    return render_template('notables_find.html', previous=previous, page="notables")
 
 @app.route('/notables/<string:region>', methods=['GET'])
 def get_notables(region):
@@ -80,25 +87,6 @@ def get_providers():
 #def test():
 #    """ Show test page. """
 #    return "<strong>It's Alive!</strong>"
-
-#@app.route('/outdoors')
-#def outdoors():
-#    """ Show outdoors page. """
-#    return app.send_static_file('outdoors.html')
-
-# previous regions searched
-#@app.route('/previous_regions/<string:to_page>', methods=['GET'])
-#def get_previous_region_searches(to_page):
-#    """ Show previous regions searched for. """
-#    data = searches.get_previous_regions()
-#    page = 'submissions' if to_page == 'checklists' else 'sightings'
-#    return render_template('previous_regions.html', data=data, page=page)
-
-#@app.route('/clear_previous_regions', methods=['GET'])
-#def clear_previous_region_searches():
-#    searches.clear_previous_regions()
-#    return redirect("/")
-
 
 if __name__ == '__main__':
     app.secret_key = app.config['SECRET_KEY']
