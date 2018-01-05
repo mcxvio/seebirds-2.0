@@ -20,6 +20,9 @@ def region_checklists(region_code):
     if response.status_code == 400:
         # Bad gateway for invalid data, extract error message.
         assert response.status_code == 400
+    elif response.status_code == 503:
+        # Forbidden, likely bad ebird key.
+        assert response.status_code == 503
     else:
         assert response.status_code == 200
 
@@ -36,6 +39,9 @@ def region_obs(subregion):
     if response.status_code == 400:
         # Bad gateway for invalid data, extract error message.
         assert response.status_code == 400
+    elif response.status.code == 503:
+        # Forbidden, likely bad ebird key.
+        assert response.status_code == 503
     else:
         assert response.status_code == 200
 
