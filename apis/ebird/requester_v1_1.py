@@ -1,5 +1,5 @@
 """
-Query eBird api.
+Query eBird 1.1 API.
 """
 import requests
 
@@ -30,9 +30,6 @@ def region_notable(rtype, subregion):
         assert response.status_code == 400
     else:
         assert response.status_code == 200
-
-    #testjson = json.loads(response.text)
-    #print("testjson__ ", testjson[0]['countryName'])
 
     return response.text
 

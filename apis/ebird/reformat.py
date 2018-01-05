@@ -1,9 +1,21 @@
 """ Reformat functions. """
 from datetime import datetime
 
+def extract_hotspots(response):
+    """ Extract hotspots...hopefully to be implemented by ebird. """
+    hotspots = []
+    for item in response:
+        if item['loc']['isHotspot'] is True:
+            hotspots.append(item)
+            if len(hotspots) == 10:
+                break
+    return hotspots
+
 def extract_date_time(value, dateortime):
     """ Extract date time. """
-    if len(value) == 10:
+    if value[-4:-2] == "20": #eBird v2 date format.
+        obs_date_time = datetime.strptime(value, '%d %b %Y')
+    elif len(value) == 10:
         obs_date_time = datetime.strptime(value, '%Y-%m-%d')
     else:
         obs_date_time = datetime.strptime(value, '%Y-%m-%d %H:%M')

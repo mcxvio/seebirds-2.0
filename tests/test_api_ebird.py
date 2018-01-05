@@ -7,9 +7,12 @@ sys.path.insert(0, '/Users/marcus.hunt/Sites/seebirds_py3/apis')
 
 print(sys.path)
 
+import json
+
+from time import gmtime, strftime
+from apis.ebird import raw
 from apis.ebird import recent
 from apis.ebird import reformat
-from time import gmtime, strftime
 
 class EbirdTestCase(unittest.TestCase):
 
@@ -18,6 +21,19 @@ class EbirdTestCase(unittest.TestCase):
 
     def tearDown(self):
     """
+    def test_get_ebird_key(self):
+        """ Get the eBird key for API 2.0 """
+        data = ''
+        with open('keys.json') as json_data_file:
+            data = json.load(json_data_file)
+        print(str(data['ebird_key']))
+        self.assertEqual(str(data), '')
+
+    def test_valid_region_for_obs(self):
+        """ Valid region for a region observation, 2.0 API """
+        response = recent.region_checklists('US-MA-025')
+        print("test_valid_region_for_obs response = ", response)
+        self.assertEqual(str(response), '')
 
     def test_extract_type_from_region(self):
         """ Extract region type from selected region """
@@ -82,7 +98,7 @@ class EbirdTestCase(unittest.TestCase):
         self.assertEqual(str(response), "[{'errorCode': 'error.data.unknown_species',"
                          + " 'errorMsg': 'Unknown species: Sci name'}]")
 
-    def test_datetime_formatting_options(self):
+    def test_datetime_format_options(self):
         """" Datetime returned when passing datetime and format parameter """
         dateortime = 'da'
         value = "2017-11-21 17:07"
