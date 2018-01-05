@@ -20,15 +20,16 @@ def datetimeformatter(value, dateortime):
     return reformat.extract_date_time(value, dateortime)
 app.jinja_env.filters['getdatetime'] = datetimeformatter
 
-@app.route('/clear', methods=['GET'])
-def clear():
-    searches.clear_previous_regions()
-    return redirect("/")
-
 @app.route('/', methods=['GET'])
 def index():
     """ Show index page. """
     return render_template('home.html')
+
+@app.route('/clear', methods=['GET'])
+def clear():
+    """ Clear previous region searches. """
+    searches.clear_previous_regions()
+    return redirect("/")
 
 # checklists
 @app.route('/checklists', methods=['GET'])
