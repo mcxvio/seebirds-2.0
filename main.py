@@ -53,7 +53,7 @@ def get_notables_search():
 
 @app.route('/notables/<string:region>', methods=['GET'])
 def get_notables(region):
-    """ Show notable sightings page. """
+    """ Show notable search results. """
     searches.save_previous_region(region)
     days = str(app.config['DAYS_BACK'])
     data = service.region_notable(region, days)
@@ -75,6 +75,19 @@ def get_species(region, full_name):
     data = service.region_species_obs(region, full_name, days)
     return render_template('species_results.html',
                            data=data, region=region, name=full_name, days=days)
+
+# hotspots
+@app.route('/hotspots', methods=['GET'])
+def get_hotspots_search():
+    """ Show hotspots search page. """
+    previous = searches.get_previous_regions()
+    return render_template('hotspots_find.html', previous=previous, page="hotspots")
+
+@app.route('/hotspots/<string:region>', methods=['GET'])
+def get_hotspots(region):
+    """ Show hotspots results page. """
+    data = service.region_hotspots(region)
+    return render_template('hotspots_results.html', data=data, region=region)
 
 # providers
 @app.route('/providers', methods=['GET'])
