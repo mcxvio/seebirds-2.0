@@ -3,7 +3,7 @@ Main entry to application.
 """
 from apis.ebird import service
 from apis.ebird import reformat
-from apis.ebird import regions as searches
+from apis.ebird import history as searches
 from flask import Flask
 from flask import render_template
 from flask import redirect
