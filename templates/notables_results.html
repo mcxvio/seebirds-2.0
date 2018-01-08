@@ -2,7 +2,7 @@
 {% block title %}notables results{% endblock %}
 {% block content %}
     <ul>
-        <li>{{ region }}<br>{{ data|length }} notable species in last 5 days.</li>
+        <li>{{ region }}<br>{{ data|length }} notable sightings in last {{ days }} days.</li>
         {% set prevdate = "" %}
         {% for item in data %}
             {% set obsdate = item.obsDt|getdatetime('da') %}
