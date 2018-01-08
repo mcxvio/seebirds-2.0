@@ -7,7 +7,7 @@
         {% else %}
             <li>
                 <a href="http://ebird.org/ebird/hotspot/{{ data[0].locID }}" target="_blank" class="external">{{ data[0].locName }}</a>
-                <br>{{ data|length }} species in last 10 days.
+                <br>{{ data|length }} species in last {{ days }} days.
             </li>
             {% set prevdate = "" %}
             {% for item in data %}
@@ -17,7 +17,7 @@
                     {% set prevdate = obsdate %}
                 {% endif %}
                 <li>
-                    {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.sciName }})" target="_self">{{ item.comName }}</a>
+                    {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
                     <br>
                         <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
                     -- {{ item.userDisplayName }}

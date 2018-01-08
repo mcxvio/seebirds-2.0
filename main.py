@@ -1,13 +1,12 @@
 """
 Main entry to application.
 """
-from apis.ebird import recent
+from apis.ebird import service
 from apis.ebird import reformat
 from apis.ebird import regions as searches
-from flask import Flask, session
+from flask import Flask
 from flask import render_template
 from flask import redirect
-from flask import request
 # session management
 from flask_session import Session
 
@@ -42,7 +41,7 @@ def get_checklist_search():
 def get_checklists(region):
     """ Show checklist search results. """
     searches.save_previous_region(region)
-    data = recent.region_checklists(region)
+    data = service.region_checklists(region)
     return render_template('checklists_results.html', data=data, region=region)
 
 # notables
@@ -56,22 +55,26 @@ def get_notables_search():
 def get_notables(region):
     """ Show notable sightings page. """
     searches.save_previous_region(region)
-    data = recent.region_notable(region)
-    return render_template('notables_results.html', data=data, region=region)
+    days = str(app.config['DAYS_BACK'])
+    data = service.region_notable(region, days)
+    return render_template('notables_results.html', data=data, region=region, days=days)
 
 # location
 @app.route('/location/<string:region>/<string:location_id>', methods=['GET'])
 def get_location(region, location_id):
     """ Show locations page. """
-    data = recent.hotspot_obs(location_id)
-    return render_template('location_results.html', data=data, region=region)
+    days = str(app.config['DAYS_BACK'])
+    data = service.region_location_obs(location_id, days)
+    return render_template('location_results.html', data=data, region=region, days=days)
 
 # species
 @app.route('/species/<string:region>/<string:full_name>', methods=['GET'])
 def get_species(region, full_name):
     """ Show species page. """
-    data = recent.region_species_obs(region, full_name)
-    return render_template('species_results.html', data=data, region=region, name=full_name)
+    days = str(app.config['DAYS_BACK'])
+    data = service.region_species_obs(region, full_name, days)
+    return render_template('species_results.html',
+                           data=data, region=region, name=full_name, days=days)
 
 # providers
 @app.route('/providers', methods=['GET'])

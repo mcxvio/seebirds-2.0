@@ -7,7 +7,7 @@
         {% else %}
             <li>
                 <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a>
-                <br>{{ data|length }} sightings in last 10 days.
+                <br>{{ data|length }} sightings in last {{ days }} days.
             </li>
             {% set prevdate = "" %}
             {% for item in data %}
@@ -17,7 +17,7 @@
                     {% set prevdate = obsdate %}
                 {% endif %}
                 <li>
-                    <a href="/location/{{ region }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>
+                    <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
                     <br>
                     {{ item.howMany }} sighted
                     @

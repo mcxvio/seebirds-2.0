@@ -11,7 +11,7 @@
                 {% set prevdate = obsdate %}
             {% endif %}
             <li>
-                <a href="/species/{{ region }}/{{ item.comName }} ({{ item.sciName }})" target="_self">{{ item.comName }}</a>
+                <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
                 <br>
                 @
                 <a href="/location/{{ region }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>

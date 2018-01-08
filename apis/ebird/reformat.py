@@ -78,6 +78,14 @@ def extract_scientific_name(full_name):
 
     return full_name #Pass-through.
 
+def extract_text_between_brackets(text):
+    """ Extract scientific name. """
+    if text.find("(") > 0: #Check for brackets.
+        text_between = text[text.find("(")+1:text.find(")")]
+        return text_between
+
+    return text #Pass-through.
+
 def extract_region_type(subregion):
     """ Count the separating dashes of the region code. """
     if len(subregion) == 3:
