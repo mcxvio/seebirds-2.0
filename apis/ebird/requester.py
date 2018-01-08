@@ -28,18 +28,58 @@ def region_checklists(region_code):
 
     return response.text
 
-def region_obs(subregion):
-    """ checklists """
+def region_notable(region_code, days):
+    """ notables """
     response = requests.get("https://ebird.org/ws2.0/data/obs/"
-                            + subregion
-                            + "/recent"
-                            + "?hotspot=true&includeProvisional=true&back=1",
+                            + region_code
+                            + "/recent/notable"
+                            + "?&detail=full"
+                            + "&hotspot=true"
+                            + "&back=" + days,
                             headers=get_ebird_key())
 
     if response.status_code == 400:
         # Bad gateway for invalid data, extract error message.
         assert response.status_code == 400
-    elif response.status.code == 503:
+    else:
+        assert response.status_code == 200
+
+    return response.text
+
+def region_species_obs(region_code, species_code, days):
+    """ species """
+    response = requests.get("https://ebird.org/ws2.0/data/obs/"
+                            + region_code
+                            + "/recent/"
+                            + species_code
+                            + "?hotspot=true"
+                            + "&includeProvisional=true"
+                            + "&back=" + days,
+                            headers=get_ebird_key())
+
+    if response.status_code == 400:
+        # Bad gateway for invalid data, extract error message.
+        assert response.status_code == 400
+    elif response.status_code == 500:
+        assert response.status_code == 500
+    else:
+        assert response.status_code == 200
+
+    return response.text
+
+def region_location_obs(location_id, days):
+    """ location/hotspot """
+    response = requests.get("https://ebird.org/ws2.0/data/obs/"
+                            + location_id
+                            + "/recent"
+                            + "?includeProvisional=true"
+                            + "&back=" + days,
+                            headers=get_ebird_key())
+
+    if response.status_code == 400:
+        # Bad gateway for invalid data, extract error message.
+        assert response.status_code == 400
+    elif response.status_code == 503:
         # Forbidden, likely bad ebird key.
         assert response.status_code == 503
     else:
