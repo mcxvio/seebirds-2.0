@@ -28,3 +28,9 @@ def region_location_obs(location_id, days):
     """ Location species """
     response = json.loads(requester.region_location_obs(location_id, days))
     return response
+
+def region_hotspots(region):
+    """ Hotspots """
+    region_code = reformat.extract_region_code(region)
+    response = json.loads(requester.region_hotspots(region_code))
+    return response

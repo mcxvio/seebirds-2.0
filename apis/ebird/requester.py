@@ -16,15 +16,7 @@ def region_checklists(region_code):
                             + region_code
                             + "?maxResults=20",
                             headers=get_ebird_key())
-
-    if response.status_code == 400:
-        # Bad gateway for invalid data, extract error message.
-        assert response.status_code == 400
-    elif response.status_code == 503:
-        # Forbidden, likely bad ebird key.
-        assert response.status_code == 503
-    else:
-        assert response.status_code == 200
+    handle_status_code(response)
 
     return response.text
 
@@ -37,12 +29,7 @@ def region_notable(region_code, days):
                             + "&hotspot=true"
                             + "&back=" + days,
                             headers=get_ebird_key())
-
-    if response.status_code == 400:
-        # Bad gateway for invalid data, extract error message.
-        assert response.status_code == 400
-    else:
-        assert response.status_code == 200
+    handle_status_code(response)
 
     return response.text
 
@@ -56,14 +43,7 @@ def region_species_obs(region_code, species_code, days):
                             + "&includeProvisional=true"
                             + "&back=" + days,
                             headers=get_ebird_key())
-
-    if response.status_code == 400:
-        # Bad gateway for invalid data, extract error message.
-        assert response.status_code == 400
-    elif response.status_code == 500:
-        assert response.status_code == 500
-    else:
-        assert response.status_code == 200
+    handle_status_code(response)
 
     return response.text
 
@@ -75,7 +55,22 @@ def region_location_obs(location_id, days):
                             + "?includeProvisional=true"
                             + "&back=" + days,
                             headers=get_ebird_key())
+    handle_status_code(response)
 
+    return response.text
+
+def region_hotspots(region_code):
+    """ region hotspots """
+    response = requests.get("https://ebird.org/ws2.0/ref/hotspot/"
+                            + region_code
+                            + "?fmt=json",
+                            headers=get_ebird_key())
+    handle_status_code(response)
+
+    return response.text
+
+def handle_status_code(response):
+    """ Handle respose status codes """
     if response.status_code == 400:
         # Bad gateway for invalid data, extract error message.
         assert response.status_code == 400
@@ -84,5 +79,3 @@ def region_location_obs(location_id, days):
         assert response.status_code == 503
     else:
         assert response.status_code == 200
-
-    return response.text

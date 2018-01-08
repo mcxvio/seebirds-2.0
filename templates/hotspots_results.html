@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}hotspots results{% endblock %}
+{% block content %}
+    <ul>
+        <li>{{ region }}<br>{{ data|length }} hotspots.</li>
+        {% set prevdate = "" %}
+        {% for item in data %}
+            <li>
+                <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
+                <br>
+                lat: {{ item.lat }}, lng: {{ item.lng }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
