@@ -2,9 +2,10 @@
 {% block title %}species{% endblock %}
 {% block content %}
     <ul>
-        {% if "errorMsg" in data[0] %}
-            <li>{{ data[0]["errorMsg"] }}</li>
-        {% else %}
+    {% if data.errors|length > 0 %}
+        <li>{{ data.errors }}</li>
+    {% else %}
+        {% if data|length > 0 %}
             <li>
                 <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a>
                 <br>{{ data|length }} sightings in last {{ days }} days.
@@ -24,6 +25,9 @@
                         {{ item.obsDt|getdatetime('t') }}
                 </li>
             {% endfor %}
+        {% else %}
+            <li>No sightings for species in region.</li>
         {% endif %}
-    </ul>
+    {% endif %}
+</ul>
 {% endblock %}

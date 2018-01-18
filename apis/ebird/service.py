@@ -2,6 +2,9 @@
 Retrieve, format and return recent data.
 """
 import json
+import ijson
+from ijson.common import ObjectBuilder
+
 from apis.ebird import requester
 from apis.ebird import reformat
 
@@ -15,6 +18,12 @@ def region_notable(region, days):
     """ Notables """
     region_code = reformat.extract_region_code(region)
     response = json.loads(requester.region_notable(region_code, days))
+    return response
+
+def region_species_code_obs(region, species_code, days):
+    """ Species """
+    region_code = reformat.extract_region_code(region)
+    response = json.loads(requester.region_species_obs(region_code, species_code, days))
     return response
 
 def region_species_obs(region, full_name, days):
@@ -33,4 +42,36 @@ def region_hotspots(region):
     """ Hotspots """
     region_code = reformat.extract_region_code(region)
     response = json.loads(requester.region_hotspots(region_code))
+    return response
+
+def family_species(family):
+    """ Family species """
+    response = ""
+    with open('data_taxaspecies.json') as json_data_file:
+        data = ijson.items(json_data_file, 'response.taxa.item')
+        species = (s for s in data if s.get("familyComName") is not None
+                   and s["familyComName"] == family)
+
+        response = list(species)
+    return response
+
+def order_species(order):
+    """ Order species """
+    response = ""
+    with open('data_taxaspecies.json') as json_data_file:
+        data = ijson.items(json_data_file, 'response.taxa.item')
+        species = (s for s in data if s.get("order") is not None
+                   and s["order"] == order)
+
+        response = list(species)
+    return response
+
+def extinct_species_all():
+    """ Extinct species. """
+    response = ""
+    with open('data_taxaspecies.json') as json_data_file:
+        data = ijson.items(json_data_file, 'response.taxa.item')
+        species = (s for s in data if s.get("extinct") is not None and s["extinct"])
+
+        response = list(species)
     return response

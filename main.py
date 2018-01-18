@@ -10,7 +10,7 @@ from flask import redirect
 # session management
 from flask_session import Session
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='', static_url_path='')
 app.config.from_pyfile('app.cfg')
 
 @app.template_filter('getdatetime')
@@ -72,7 +72,13 @@ def get_location(region, location_id):
 def get_species(region, full_name):
     """ Show species page. """
     days = str(app.config['DAYS_BACK'])
-    data = service.region_species_obs(region, full_name, days)
+
+    if full_name.find("(") > 0:
+        species_code = full_name[full_name.rfind("(")+1:full_name.rfind(")")]
+    else:
+        species_code = full_name
+
+    data = service.region_species_code_obs(region, species_code, days)
     return render_template('species_results.html',
                            data=data, region=region, name=full_name, days=days)
 
@@ -88,6 +94,50 @@ def get_hotspots(region):
     """ Show hotspots results page. """
     data = service.region_hotspots(region)
     return render_template('hotspots_results.html', data=data, region=region)
+
+# taxa
+@app.route('/taxa', methods=['GET'])
+def get_taxa_search():
+    """ Show taxa search page. """
+    previous = searches.get_previous_regions()
+    return render_template('taxa_find.html', previous=previous, page="taxa")
+
+@app.route('/taxa/<string:species>/<string:family>/<string:order>', methods=['GET'])
+def get_taxa(species, family, order):
+    """ Show taxa results page. """
+    name = species[0:species.rfind("(")]
+    code = species[species.rfind("(")+1:species.rfind(")")]
+    return render_template('taxa_results.html', name=name, code=code, family=family, order=order)
+
+# taxonomy
+@app.route('/family/<string:family>', methods=['GET'])
+def get_family_species(family):
+    """ Show taxa family results page. """
+    data = service.family_species(family)
+    return render_template('taxa_results_family.html', data=data)
+
+@app.route('/order/<string:order>', methods=['GET'])
+def get_order_species(order):
+    """ Show taxa order results page. """
+    data = service.order_species(order)
+    return render_template('taxa_results_order.html', data=data)
+
+@app.route('/extinct', methods=['GET'])
+def get_extinct_species():
+    """ View all the extinct species and year of extinction. """
+    data = service.extinct_species_all()
+    return render_template('extinct_results.html', data=data)
+
+# data
+@app.route('/data_taxaspecies', methods=['GET'])
+def get_taxa_data():
+    """ Return the species data from root, enabling both typeahead and json file searches. """
+    return app.send_static_file('data_taxaspecies.json')
+
+@app.route('/data_subnationals', methods=['GET'])
+def get_region_data():
+    """ Return the region data from root, for consistency with species data. """
+    return app.send_static_file('data_subnationals2.json')
 
 # providers
 @app.route('/providers', methods=['GET'])
