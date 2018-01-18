@@ -74,6 +74,9 @@ def handle_status_code(response):
     if response.status_code == 400:
         # Bad gateway for invalid data, extract error message.
         assert response.status_code == 400
+    elif response.status_code == 500:
+        # API error.
+        assert response.status_code == 500
     elif response.status_code == 503:
         # Forbidden, likely bad ebird key.
         assert response.status_code == 503

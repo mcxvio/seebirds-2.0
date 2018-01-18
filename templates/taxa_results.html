@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}taxa{% endblock %}
+{% block head %}
+        <!-- Typeahead -->
+        <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="/static/scripts/typeahead_prefetch_regions.js"></script>
+        <script src="/static/scripts/typeahead.min.js/typeahead.bundle.min.js"></script>
+        <script src="/static/scripts/typeahead.min.js/typeahead.jquery.min.js"></script>
+        <script src="/static/scripts/typeahead.min.js/bloodhound.min.js"></script>
+        <!-- End Typeahead -->
+{% endblock %}
+{% block content %}
+    Find:
+    <ul>
+        <li>
+            {{ name }}<span style="visibility: hidden;">{{ code }}</span>
+        </li>
+    </ul>
+    In:
+    <br><br>
+    <div id="prefetch-find">
+        <!-- Typeahead -->
+        <input autofocus class="typeahead" type="text" placeholder="Search State or County" />
+    </div>
+    <br>
+    More:
+    <ul>
+        <li>
+            <a href="/family/{{ family }}" target="_self">{{ family }}</a>
+            <ul>
+                <li><a href="/order/{{ order }}" target="_self">{{ order }}</a></li>
+            </ul>
+        </li>
+    </ul>
+{% endblock %}
