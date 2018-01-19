@@ -105,9 +105,11 @@ def get_taxa_search():
 @app.route('/taxa/<string:species>/<string:family>/<string:order>', methods=['GET'])
 def get_taxa(species, family, order):
     """ Show taxa results page. """
+    previous = searches.get_previous_regions()
     name = species[0:species.rfind("(")]
     code = species[species.rfind("(")+1:species.rfind(")")]
-    return render_template('taxa_results.html', name=name, code=code, family=family, order=order)
+    return render_template('taxa_results.html', name=name, code=code, family=family, order=order,
+                           previous=previous, page="species")
 
 # taxonomy
 @app.route('/family/<string:family>', methods=['GET'])

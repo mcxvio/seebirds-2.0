@@ -3,11 +3,14 @@
 {% block head %}
 {% endblock %}
 {% block content %}
+    {{ data[0].order }}
     <ul>
+        {% set prev_family = "" %}
         {% for item in data %}
-            <li>
-                {{ item }} /
-            </li>
+            {% if prev_family != item.familyComName %}
+                <li><a href="/family/{{ item.familyComName }}" target="_self">{{ item.familyComName }}</a></li>
+                {% set prev_family = item.familyComName %}
+            {% endif %}
         {% endfor %}
     </ul>
 {% endblock %}
