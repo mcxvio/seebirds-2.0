@@ -3,7 +3,6 @@ Retrieve, format and return recent data.
 """
 import json
 import ijson
-from ijson.common import ObjectBuilder
 
 from apis.ebird import requester
 from apis.ebird import reformat

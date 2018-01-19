@@ -2,7 +2,6 @@
 {% block title %}taxa{% endblock %}
 {% block head %}
         <!-- Typeahead -->
-        <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="/static/scripts/typeahead_prefetch_regions.js"></script>
         <script src="/static/scripts/typeahead.min.js/typeahead.bundle.min.js"></script>
         <script src="/static/scripts/typeahead.min.js/typeahead.jquery.min.js"></script>
@@ -22,13 +21,26 @@
         <!-- Typeahead -->
         <input autofocus class="typeahead" type="text" placeholder="Search State or County" />
     </div>
+    <div id="previous-regions">
+        {% if previous != None and previous|length > 0 %}
+            <ul>
+                <li>Previous Regions:</li>
+                {% for item in previous %}
+                    {% if item != None %}
+                        <li><a href="/{{ page }}/{{ item }}/{{ code }}">{{ item }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <li><a href="/clear">[Clear]</a></li>
+            </ul>
+        {% endif %}
+    </div>
     <br>
     More:
     <ul>
         <li>
-            <a href="/family/{{ family }}" target="_self">{{ family }}</a>
+            <a href="/order/{{ order }}" target="_self">{{ order }}</a>
             <ul>
-                <li><a href="/order/{{ order }}" target="_self">{{ order }}</a></li>
+                <li><a href="/family/{{ family }}" target="_self">{{ family }}</a></li>
             </ul>
         </li>
     </ul>

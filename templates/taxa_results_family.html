@@ -3,10 +3,11 @@
 {% block head %}
 {% endblock %}
 {% block content %}
+    {{ data[0].familyComName }}
     <ul>
         {% for item in data %}
             <li>
-                {{ item }} /
+                <a href="/taxa/{{ item.comName }} ({{ item.speciesCode }})/{{ item.familyComName }}/{{ item.order }}">{{ item.comName }}</a>
             </li>
         {% endfor %}
     </ul>
