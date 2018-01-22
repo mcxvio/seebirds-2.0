@@ -18,8 +18,6 @@
                 {% endif %}
                 <li>
                     {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
-                    <br>
-                    <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
                 </li>
             {% endfor %}
         {% endif %}
