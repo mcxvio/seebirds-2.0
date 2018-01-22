@@ -10,7 +10,7 @@ def save_previous_region(region):
     #if connection.get_connection() != None:
     #    connection.save_key_value(region_code, region)
     #else:
-    session[region_code] = region
+    session[region_code] = "r:" + region
 
 def get_previous_regions():
     """ Try to retrieve from redis or default to flask session. """
@@ -19,10 +19,32 @@ def get_previous_regions():
     #else:
     data = []
     for key in session:
-        data.append(session[key])
+        if 'r:' in session[key]:
+            data.append(session[key][2:])
     return data
 
 def clear_previous_regions():
+    """ Clear previously searched for terms. """
+    #if connection.get_connection() != None:
+    #    connection.clear_values()
+    #else:
+    session.clear()
+
+# species
+def save_previous_species(species, family, order):
+    """ Save species to flask session. """
+    species_code = species[species.rfind("(")+1:species.rfind(")")]
+    session[species_code] = "s:" + species + "/" + family + "/" + order
+
+def get_previous_species():
+    """ Retrieve species from flask session. """
+    data = []
+    for key in session:
+        if 's:' in session[key]:
+            data.append(session[key][2:])
+    return data
+
+def clear_previous_species():
     """ Clear previously searched for terms. """
     #if connection.get_connection() != None:
     #    connection.clear_values()

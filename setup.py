@@ -3,11 +3,11 @@ Setup application info.
 """
 from setuptools import setup
 
-setup(name='mobicomp',
-      version='1.0',
-      description='OpenShift App',
+setup(name='seebirds',
+      version='2.0',
+      description='Python Flask App',
       author='Marcus Hunt',
-      author_email='mrhapi@outlook.com',
+      author_email='mcxvio@outlook.com',
       url='http://www.python.org/sigs/distutils-sig/',
       install_requires=['Flask>=0.12.2',
                         'requests>=2.10.0',

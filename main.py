@@ -78,6 +78,7 @@ def get_species(region, full_name):
     else:
         species_code = full_name
 
+    searches.save_previous_region(region)
     data = service.region_species_code_obs(region, species_code, days)
     return render_template('species_results.html',
                            data=data, region=region, name=full_name, days=days)
@@ -99,7 +100,7 @@ def get_hotspots(region):
 @app.route('/taxa', methods=['GET'])
 def get_taxa_search():
     """ Show taxa search page. """
-    previous = searches.get_previous_regions()
+    previous = searches.get_previous_species()
     return render_template('taxa_find.html', previous=previous, page="taxa")
 
 @app.route('/taxa/<string:species>/<string:family>/<string:order>', methods=['GET'])
@@ -108,6 +109,7 @@ def get_taxa(species, family, order):
     previous = searches.get_previous_regions()
     name = species[0:species.rfind("(")]
     code = species[species.rfind("(")+1:species.rfind(")")]
+    searches.save_previous_species(species, family, order)
     return render_template('taxa_results.html', name=name, code=code, family=family, order=order,
                            previous=previous, page="species")
 
@@ -151,11 +153,6 @@ def get_providers():
 #def jasmine():
 #    """ Show test page. """
 #    return app.send_static_file('tests/jasmine/SpecRunner.html')
-
-#@app.route("/test")
-#def test():
-#    """ Show test page. """
-#    return "<strong>It's Alive!</strong>"
 
 if __name__ == '__main__':
     app.secret_key = app.config['SECRET_KEY']

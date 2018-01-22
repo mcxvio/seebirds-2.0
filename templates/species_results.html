@@ -18,11 +18,9 @@
                     {% set prevdate = obsdate %}
                 {% endif %}
                 <li>
-                    <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
+                    {{ item.howMany }} sighted @ {{ item.obsDt|getdatetime('t') }}
                     <br>
-                    {{ item.howMany }} sighted
-                    @
-                        {{ item.obsDt|getdatetime('t') }}
+                    @ <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
                 </li>
             {% endfor %}
         {% else %}

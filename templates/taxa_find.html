@@ -19,7 +19,8 @@
                 <li>Previous Species:</li>
                 {% for item in previous %}
                     {% if item != None %}
-                        <li><a href="/{{ page }}/{{ item }}">{{ item }}</a></li>
+                        {% set name = item[0:item.rfind("(")] %}
+                        <li><a href="/{{ page }}/{{ item }}">{{ name }}</a></li>
                     {% endif %}
                 {% endfor %}
                 <li><a href="/clear">[Clear]</a></li>

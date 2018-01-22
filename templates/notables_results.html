@@ -11,12 +11,12 @@
                 {% set prevdate = obsdate %}
             {% endif %}
             <li>
-                <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
+                {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
                 <br>
                 @
                 <a href="/location/{{ region }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>
                 <br>
-                    <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
+                    <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subId }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
                 -- {{ item.userDisplayName }}
             </li>
         {% endfor %}
