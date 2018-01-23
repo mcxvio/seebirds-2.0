@@ -9,20 +9,20 @@
         <!-- End Typeahead -->
 {% endblock %}
 {% block content %}
-    <div id="prefetch-find">
+    <div id="prefetch-find" class="list-unstyled list-group mb-3">
         <!-- Typeahead -->
         <input autofocus class="typeahead" type="text" placeholder="Search State or County" />
     </div>
     <div id="previous-regions">
         {% if previous != None and previous|length > 0 %}
-            <ul>
-                <li>Previous Regions:</li>
+            <ul class="list-unstyled list-group">
+                <li class="list-group-item list-group-item-secondary">Previous Regions:</li>
                 {% for item in previous %}
                     {% if item != None %}
-                        <li><a href="/{{ page }}/{{ item }}">{{ item }}</a></li>
+                        <li class="list-group-item list-group-item-action"><a href="/{{ page }}/{{ item }}">{{ item }}</a></li>
                     {% endif %}
                 {% endfor %}
-                <li><a href="/clear">[Clear]</a></li>
+                <li class="list-group-item list-group-item-warning"><a href="/clear">[Clear]</a></li>
             </ul>
         {% endif %}
     </div>

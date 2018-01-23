@@ -1,6 +1,9 @@
 # private key file
 keys.json
 
+# icons
+static/open-iconic-master
+
 *.vscode/
 *.DS_Store
 *.bak
