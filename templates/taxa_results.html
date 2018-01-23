@@ -9,13 +9,11 @@
         <!-- End Typeahead -->
 {% endblock %}
 {% block content %}
-    Find:
+    <p><h6>Find:</h6></p>
     <ul class="list-unstyled list-group">
         <li class="list-group-item list-group-item-success">{{ name }}<span style="visibility: hidden;">{{ code }}</span></li>
     </ul>
-    <br>
-    In:
-    <br>
+    <p><h6>In:</h6></p>
     <div id="prefetch-find" class="list-unstyled list-group mb-3">
         <!-- Typeahead -->
         <input autofocus class="typeahead form-control" type="text" placeholder="Search State or County" />
@@ -33,8 +31,7 @@
             </ul>
         {% endif %}
     </div>
-    <br>
-    More:
+    <p><h6>More:</h6></p>
     <ul class="list-unstyled list-group">
         <li class="list-group-item list-group-item-action">
             <p><a href="/order/{{ order }}" target="_self">{{ order }}</a></p>            
