@@ -8,7 +8,20 @@
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <!-- Iconic CSS -->
-        <link rel="stylesheet" href="/static/open-iconic-master/font/css/open-iconic-bootstrap.css">
+        <link rel="stylesheet" href="/static/open-iconic-master/font/css/open-iconic-bootstrap.min.css">
+        <style type="text/css">
+            .icon {
+                height: 24px;
+                width: 24px;
+            }
+            .dropdown-nav {
+                width: 33.5%;
+            }
+            .dropdown-nav-item {
+                height: 2.75em;
+                padding-top: 0.66em;
+            }
+        </style>         
         <script>
             function initialize() {
                 document.getElementById("year").innerHTML = (new Date()).getFullYear()
@@ -22,9 +35,21 @@
         <div  class="container-fluid">
             <div id="header" class="row">
                 <div class="col">
-                    {% if request.path != '/' %}
-                        <p><a href="/">home</a></p>
-                    {% endif %}
+                    <nav class="nav nav-pills nav-fill">
+                        <!--<a class="nav-item nav-link" href="#"><img src="/static/open-iconic-master/svg/menu.svg" alt="menu" class="icon"></a>-->
+                        <button class="btn dropdown-toggle nav-item nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="/static/open-iconic-master/svg/menu.svg" alt="menu" class="icon">
+                        </button>
+                        <div class="dropdown-menu dropdown-nav" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item nav-item dropdown-nav-item" href="/checklists">checklists</a>
+                            <a class="dropdown-item nav-item dropdown-nav-item" href="/notables">notables</a>
+                            <a class="dropdown-item nav-item dropdown-nav-item" href="/hotspots">hotspots</a>
+                            <a class="dropdown-item nav-item dropdown-nav-item" href="/taxa">taxa</a>
+                            <a class="dropdown-item nav-item dropdown-nav-item" href="/extinct">extinct</a>
+                        </div>
+                        <a class="nav-item nav-link" href="/"><img src="/static/open-iconic-master/svg/home.svg" alt="home" class="icon"></a>
+                        <a class="nav-item nav-link" href="/providers"><img src="/static/open-iconic-master/svg/cog.svg" alt="settings" class="icon"></a>
+                    </nav>
                 </div>
             </div>
             <div id="content" class="row">
@@ -41,5 +66,7 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>
