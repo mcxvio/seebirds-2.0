@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% block title %}notables results{% endblock %}
 {% block content %}
-    <ul>
-        <li>{{ region }}<br>{{ data|length }} notable sightings in last {{ days }} days.</li>
+    <ul class="list-unstyled list-group">
+        <li class="list-group-item list-group-item-secondary">{{ region }}</li>
+        <li class="list-group-item">{{ data|length }} notable sightings in last {{ days }} days.</li>
         {% set prevdate = "" %}
         {% for item in data %}
             {% set obsdate = item.obsDt|getdatetime('da') %}
             {% if prevdate != obsdate %}
-                <li>{{ obsdate }}</li>
+                <li class="list-group-item list-group-item-info">{{ obsdate }}</li>
                 {% set prevdate = obsdate %}
             {% endif %}
-            <li>
+            <li class="list-group-item list-group-item-action">
                 {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
                 <br>
-                @
-                <a href="/location/{{ region }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>
+                @ <a href="/location/{{ region }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>
                 <br>
-                    <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subId }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
+                <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subId }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
                 -- {{ item.userDisplayName }}
             </li>
         {% endfor %}

@@ -1,30 +1,31 @@
 {% extends "base.html" %}
 {% block title %}species{% endblock %}
 {% block content %}
-    <ul>
+    <ul class="list-unstyled list-group">
     {% if data.errors|length > 0 %}
-        <li>{{ data.errors }}</li>
+        <li class="list-group-item list-group-item-warning">{{ data.errors }}</li>
     {% else %}
         {% if data|length > 0 %}
-            <li>
+            <li class="list-group-item list-group-item-secondary">{{ region }}</li>
+            <li class="list-group-item list-group-item-success">
                 <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a>
-                <br>{{ data|length }} sightings in last {{ days }} days.
             </li>
+            <li class="list-group-item">{{ data|length }} sightings in last {{ days }} days.</li>
             {% set prevdate = "" %}
             {% for item in data %}
                 {% set obsdate = item.obsDt|getdatetime('da') %}
                 {% if prevdate != obsdate %}
-                    <li>{{ obsdate }}</li>
+                    <li class="list-group-item list-group-item-info">{{ obsdate }}</li>
                     {% set prevdate = obsdate %}
                 {% endif %}
-                <li>
+                <li class="list-group-item list-group-item-action">
                     {{ item.howMany }} sighted @ {{ item.obsDt|getdatetime('t') }}
                     <br>
                     @ <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
                 </li>
             {% endfor %}
         {% else %}
-            <li>No sightings for species in region.</li>
+            <li class="list-group-item list-group-item-warning">No sightings for species in region.</li>
         {% endif %}
     {% endif %}
 </ul>

@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% block title %}checklists results{% endblock %}
 {% block content %}
-    <ul>
-        <li>{{ region }}<br>{{ data|length }} most recent checklists and species seen.</li>
+    <ul class="list-unstyled list-group">
+        <li class="list-group-item list-group-item-secondary">{{ region }}</li>
+        <li class="list-group-item">{{ data|length }} most recent checklists and species seen.</li>
         {% set prevdate = "" %}
         {% for item in data %}
-        {% set obsdate = item.obsDt|getdatetime('da') %}
+            {% set obsdate = item.obsDt|getdatetime('da') %}
             {% if prevdate != obsdate %}
-                <li>{{ obsdate }}</li>
+                <li class="list-group-item list-group-item-info">{{ obsdate }}</li>
                 {% set prevdate = obsdate %}
             {% endif %}
-            <li>
+            <li class="list-group-item list-group-item-action">
                 {{ item.numSpecies }} species
                 <br>
                 @ <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.loc.name }}</a>

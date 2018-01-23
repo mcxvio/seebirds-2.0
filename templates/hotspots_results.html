@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title %}hotspots results{% endblock %}
 {% block content %}
-    <ul>
-        <li>{{ region }}<br>{{ data|length }} hotspots.</li>
-        {% set prevdate = "" %}
+    <ul class="list-unstyled list-group">
+        <li class="list-group-item list-group-item-secondary">{{ region }}</li>
+        <li class="list-group-item">{{ data|length }} hotspots.</li>
         {% for item in data %}
-            <li>
+            <li class="list-group-item list-group-item-action">
                 <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
                 <br>
                 lat: {{ item.lat }}, lng: {{ item.lng }}

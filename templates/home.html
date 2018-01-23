@@ -7,16 +7,16 @@
     </style>
 {% endblock %}
 {% block content %}
-    <p class="important">Welcome :: data analysis!</p>
-    <p>
-        <a href="/checklists">checklists</a><br>
-        <a href="/notables">notables</a><br>
-        <br>
-        <a href="/hotspots">hotspots</a><br>
-        <br>
-        <a href="/taxa">taxa</a><br>
-        <a href="/extinct">extinct</a><br>
-        <br>
-        <a href="/providers">providers</a>
-    </p>
+    <div class="list-group">
+        <p><h6>Welcome!</h6></p>
+        <a href="/checklists" class="list-group-item list-group-item-action">checklists</a>
+        <a href="/notables" class="list-group-item list-group-item-action">notables</a>
+        <a href="#" class="list-group-item list-group-item-action disabled">&nbsp;</a>
+        <a href="/hotspots" class="list-group-item list-group-item-action">hotspots</a>
+        <a href="#" class="list-group-item list-group-item-action disabled">&nbsp;</a>
+        <a href="/taxa" class="list-group-item list-group-item-action">taxa</a>
+        <a href="/extinct" class="list-group-item list-group-item-action">extinct</a>
+        <a href="#" class="list-group-item list-group-item-action disabled">&nbsp;</a>
+        <a href="/providers" class="list-group-item list-group-item-action">providers</a>
+    </div>
 {% endblock %}

@@ -1,22 +1,20 @@
 {% extends "base.html" %}
 {% block title %}location{% endblock %}
 {% block content %}
-    <ul>
+    <ul class="list-unstyled list-group">
         {% if data|length == 0 %}
-            <li>No data found: check location.</li>
+            <li class="list-group-item list-group-item-warning">No data found: check location.</li>
         {% else %}
-            <li>
-                <a href="http://ebird.org/ebird/hotspot/{{ data[0].locID }}" target="_blank" class="external">{{ data[0].locName }}</a>
-                <br>{{ data|length }} species in last {{ days }} days.
-            </li>
+            <li class="list-group-item list-group-item-secondary"><a href="http://ebird.org/ebird/hotspot/{{ data[0].locId }}" target="_blank" class="external">{{ data[0].locName }}</a></li>
+            <li class="list-group-item">{{ data|length }} species in last {{ days }} days.</li>
             {% set prevdate = "" %}
             {% for item in data %}
                 {% set obsdate = item.obsDt|getdatetime('da') %}
                 {% if prevdate != obsdate %}
-                    <li>{{ obsdate }}</li>
+                    <li class="list-group-item list-group-item-info">{{ obsdate }}</li>
                     {% set prevdate = obsdate %}
                 {% endif %}
-                <li>
+                <li class="list-group-item list-group-item-action">
                     {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
                 </li>
             {% endfor %}

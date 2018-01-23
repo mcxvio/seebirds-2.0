@@ -2,32 +2,44 @@
 <html lang="en">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>seebirds :: {% block title %}{% endblock %}</title>
         <link rel="shortcut icon" type="image/png" href="/static/favicon.ico"/>
-        <link rel="stylesheet" type="text/css" href="/static/styles/custom.css">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- Iconic CSS -->
+        <link rel="stylesheet" href="/static/open-iconic-master/font/css/open-iconic-bootstrap.css">
         <script>
             function initialize() {
                 document.getElementById("year").innerHTML = (new Date()).getFullYear()
             }
         </script>
-        <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
         {% block head %}
         {% endblock %}
     </head>
     <body onload="initialize()">
-        <div id="content">
-            {% if request.path != '/' %}
-                <p><a href="/">home</a></p>
-            {% endif %}
-            {% block content %}
-            {% endblock %}
-        </div>
-        <br>
-        <div id="footer">
-            {% block footer %}
-            &copy <span id="year"></span> M Hunt. Data by <a href="http://www.ebird.org" target="_blank" class="external">eBird</a>.
-            {% endblock %}
+        <div  class="container-fluid">
+            <div id="header" class="row">
+                <div class="col">
+                    {% if request.path != '/' %}
+                        <p><a href="/">home</a></p>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="content" class="row">
+                <div class="col">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+            <div id="footer" class="row">
+                <div class="col">
+                    {% block footer %}
+                    <p><br>&copy <span id="year"></span> M Hunt. Data by <a href="http://www.ebird.org" target="_blank" class="external">eBird</a>.</p>
+                    {% endblock %}
+                </div>
+            </div>
         </div>
     </body>
 </html>
