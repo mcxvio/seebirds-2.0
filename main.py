@@ -155,8 +155,8 @@ def get_providers():
 #    return app.send_static_file('tests/jasmine/SpecRunner.html')
 
 if __name__ == '__main__':
-    app.secret_key = app.config['SECRET_KEY']
-    app.run(app.config['IP'], app.config['PORT'])
+#    app.secret_key = app.config['SECRET_KEY']
+#    app.run(app.config['IP'], app.config['PORT'])
 
     SESSION_TYPE = 'redis'
     Session(app)
