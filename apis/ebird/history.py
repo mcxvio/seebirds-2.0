@@ -4,6 +4,7 @@ Return previous searches from repository.
 #from persistence import redis_instance as connection
 from flask import session
 
+# regions
 def save_previous_region(region):
     """ Try to save to redis or default to flask session. """
     region_code = region[region.find("(")+1:region.find(")")]
@@ -20,7 +21,7 @@ def get_previous_regions():
     data = []
     for key in session:
         if 'r:' in session[key]:
-            data.append(session[key][2:])
+            data.append(session[key][2:].replace("%20", " "))
     return data
 
 def clear_previous_regions():
@@ -41,7 +42,7 @@ def get_previous_species():
     data = []
     for key in session:
         if 's:' in session[key]:
-            data.append(session[key][2:])
+            data.append(session[key][2:].replace("%20", " "))
     return data
 
 def clear_previous_species():
