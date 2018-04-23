@@ -42,7 +42,7 @@ def get_checklists(region):
     """ Show checklist search results. """
     searches.save_previous_region(region)
     data = service.region_checklists(region)
-    return render_template('checklists_results.html', data=data, region=region)
+    return render_template('checklists_results.html', data=data, region=region.replace("%20", " "))
 
 # notables
 @app.route('/notables', methods=['GET'])
@@ -57,7 +57,7 @@ def get_notables(region):
     searches.save_previous_region(region)
     days = str(app.config['DAYS_BACK'])
     data = service.region_notable(region, days)
-    return render_template('notables_results.html', data=data, region=region, days=days)
+    return render_template('notables_results.html', data=data, region=region.replace("%20", " "), days=days)
 
 # location
 @app.route('/location/<string:region>/<string:location_id>', methods=['GET'])
@@ -65,7 +65,7 @@ def get_location(region, location_id):
     """ Show locations page. """
     days = str(app.config['DAYS_BACK'])
     data = service.region_location_obs(location_id, days)
-    return render_template('location_results.html', data=data, region=region, days=days)
+    return render_template('location_results.html', data=data, region=region.replace("%20", " "), days=days)
 
 # species
 @app.route('/species/<string:region>/<string:full_name>', methods=['GET'])
@@ -81,7 +81,7 @@ def get_species(region, full_name):
     searches.save_previous_region(region)
     data = service.region_species_code_obs(region, species_code, days)
     return render_template('species_results.html',
-                           data=data, region=region, name=full_name, days=days)
+                           data=data, region=region.replace("%20", " "), name=full_name, days=days)
 
 # hotspots
 @app.route('/hotspots', methods=['GET'])
@@ -94,7 +94,7 @@ def get_hotspots_search():
 def get_hotspots(region):
     """ Show hotspots results page. """
     data = service.region_hotspots(region)
-    return render_template('hotspots_results.html', data=data, region=region)
+    return render_template('hotspots_results.html', data=data, region=region.replace("%20", " "))
 
 # taxa
 @app.route('/taxa', methods=['GET'])
