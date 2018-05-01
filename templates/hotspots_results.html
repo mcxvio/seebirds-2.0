@@ -6,7 +6,7 @@
         <li class="list-group-item">{{ data|length }} hotspots.</li>
         {% for item in data %}
             <li class="list-group-item list-group-item-action">
-                <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
+                <a href="/locations/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
                 <br>
                 lat: {{ item.lat }}, lng: {{ item.lng }}
             </li>
