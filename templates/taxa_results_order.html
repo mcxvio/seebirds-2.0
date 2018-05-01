@@ -8,7 +8,7 @@
         {% set prev_family = "" %}
         {% for item in data %}
             {% if prev_family != item.familyComName %}
-                <li class="list-group-item list-group-item-action"><a href="/family/{{ item.familyComName }}" target="_self">{{ item.familyComName }}</a></li>
+                <li class="list-group-item list-group-item-action"><a href="/families/{{ item.familyComName }}" target="_self">{{ item.familyComName }}</a></li>
                 {% set prev_family = item.familyComName %}
             {% endif %}
         {% endfor %}

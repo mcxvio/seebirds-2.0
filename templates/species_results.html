@@ -21,7 +21,7 @@
                 <li class="list-group-item list-group-item-action">
                     {{ item.howMany }} sighted @ {{ item.obsDt|getdatetime('t') }}
                     <br>
-                    @ <a href="/location/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
+                    @ <a href="/locations/{{ region }}/{{ item.locId }}" target="_self">{{ item.locName }}</a>
                 </li>
             {% endfor %}
         {% else %}

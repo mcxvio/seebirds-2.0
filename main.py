@@ -60,12 +60,12 @@ def get_notables(region):
     return render_template('notables_results.html', data=data, region=region.replace("%20", " "), days=days)
 
 # location
-@app.route('/location/<string:region>/<string:location_id>', methods=['GET'])
-def get_location(region, location_id):
+@app.route('/locations/<string:region>/<string:location_id>', methods=['GET'])
+def get_locations(region, location_id):
     """ Show locations page. """
     days = str(app.config['DAYS_BACK'])
     data = service.region_location_obs(location_id, days)
-    return render_template('location_results.html', data=data, region=region.replace("%20", " "), days=days)
+    return render_template('locations_results.html', data=data, region=region.replace("%20", " "), days=days)
 
 # species
 @app.route('/species/<string:region>/<string:full_name>', methods=['GET'])
@@ -114,13 +114,13 @@ def get_taxa(species, family, order):
                            previous=previous, page="species")
 
 # taxonomy
-@app.route('/family/<string:family>', methods=['GET'])
+@app.route('/families/<string:family>', methods=['GET'])
 def get_family_species(family):
     """ Show taxa family results page. """
     data = service.family_species(family)
     return render_template('taxa_results_family.html', data=data)
 
-@app.route('/order/<string:order>', methods=['GET'])
+@app.route('/orders/<string:order>', methods=['GET'])
 def get_order_species(order):
     """ Show taxa order results page. """
     data = service.order_species(order)
