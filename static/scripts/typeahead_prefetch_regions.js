@@ -25,7 +25,13 @@ $(document).ready(function() {
     items.initialize();
 
     // set results page to show from url
-    var page = (document.URL.includes('checklists') ? "checklists" : "notables");
+    var page = "checklists";
+    if (document.URL.includes('hotspots')) {
+        page = "hotspots";
+    } else {
+        page = "notables";
+    }
+
     var species = "";
     if (document.URL.includes('taxa')) {
         // extract species code for pass-through to region links.

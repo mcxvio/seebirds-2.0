@@ -94,9 +94,8 @@ def get_hotspots_search():
 @app.route('/hotspots/<string:region>', methods=['GET'])
 def get_hotspots(region):
     """ Show hotspots results page. """
+    searches.save_previous_region(region)
     previous = searches.get_previous_hotspots(region)
-
-    #data = '' #service.region_hotspots(region)
     return render_template('hotspots_results.html', previous=previous, page="locations", region=region.replace("%20", " "))
 
 # taxa
