@@ -43,6 +43,11 @@ def region_hotspots(region):
     response = json.loads(requester.region_hotspots(region_code))
     return response
 
+def region_hotspots_all(region):
+    """ Hotspots """
+    region_code = reformat.extract_region_code(region)
+    return requester.region_hotspots(region_code)
+
 def family_species(family):
     """ Family species """
     response = ""

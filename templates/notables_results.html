@@ -14,7 +14,7 @@
             <li class="list-group-item list-group-item-action">
                 {{ item.howMany }} <a href="/species/{{ region }}/{{ item.comName }} ({{ item.speciesCode }})" target="_self">{{ item.comName }}</a>
                 <br>
-                @ <a href="/locations/{{ region }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>
+                @ <a href="/locations/{{ region }}/{{ item.locName }}/{{ item.locID }}" target="_self">{{ item.locName }}</a>
                 <br>
                 <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subId }}" target="_blank" class="external">{{ item.obsDt|getdatetime('t') }}</a>
                 -- {{ item.userDisplayName }}

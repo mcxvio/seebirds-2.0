@@ -59,13 +59,14 @@ def get_notables(region):
     data = service.region_notable(region, days)
     return render_template('notables_results.html', data=data, region=region.replace("%20", " "), days=days)
 
-# location
-@app.route('/locations/<string:region>/<string:location_id>', methods=['GET'])
-def get_locations(region, location_id):
+# locations
+@app.route('/locations/<string:region>/<string:location_name>/<string:location_id>', methods=['GET'])
+def get_locations(region, location_name, location_id):
     """ Show locations page. """
+    searches.save_previous_hotspots(region, location_name, location_id)
     days = str(app.config['DAYS_BACK'])
     data = service.region_location_obs(location_id, days)
-    return render_template('locations_results.html', data=data, region=region.replace("%20", " "), days=days)
+    return render_template('locations_results.html', data=data, region=region.replace("%20", " "), name=location_name, id=location_id, days=days)
 
 # species
 @app.route('/species/<string:region>/<string:full_name>', methods=['GET'])
@@ -93,8 +94,10 @@ def get_hotspots_search():
 @app.route('/hotspots/<string:region>', methods=['GET'])
 def get_hotspots(region):
     """ Show hotspots results page. """
-    data = service.region_hotspots(region)
-    return render_template('hotspots_results.html', data=data, region=region.replace("%20", " "))
+    previous = searches.get_previous_hotspots(region)
+
+    #data = '' #service.region_hotspots(region)
+    return render_template('hotspots_results.html', previous=previous, page="locations", region=region.replace("%20", " "))
 
 # taxa
 @app.route('/taxa', methods=['GET'])
@@ -142,6 +145,12 @@ def get_taxa_data():
 def get_region_data():
     """ Return the region data from root, for consistency with species data. """
     return app.send_static_file('data_subnationals2.json')
+
+@app.route('/data_hotspots/<string:region>', methods=['GET'])
+def get_hotspots_all(region):
+    """ Show hotspots data for filter. """
+    data = service.region_hotspots_all(region)
+    return data
 
 # providers
 @app.route('/providers', methods=['GET'])

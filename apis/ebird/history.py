@@ -47,7 +47,24 @@ def get_previous_species():
 
 def clear_previous_species():
     """ Clear previously searched for terms. """
-    #if connection.get_connection() != None:
-    #    connection.clear_values()
-    #else:
+    session.clear()
+
+# hotspots
+def save_previous_hotspots(region, location_name, location_id):
+    """ Save region & hotspot to flask session. """
+    session[location_id] = "h:" + region + "/" + location_name + "/" + location_id
+    print("save: " + session[location_id])
+
+def get_previous_hotspots(region):
+    """ Retrieve region & hotspot from flask session. """
+    data = []
+    for key in session:
+        if 'h:' in session[key]:
+            data.append(session[key][2:].replace("%20", " "))
+
+    print("get, data: " + str(data))
+    return data
+
+def clear_previous_hotspots():
+    """ Clear previously searched for terms. """
     session.clear()
