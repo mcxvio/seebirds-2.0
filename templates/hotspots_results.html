@@ -26,7 +26,7 @@
                 <li class="list-group-item list-group-item-secondary">Previous Hotspots:</li>
                 {% for item in previous %}
                     {% if item != None %}
-                        <li class="list-group-item list-group-item-action"><a href="/{{ page }}/{{ region }}/{{ item }}">{{ item.split('/')[0] }}</a></li>
+                        <li class="list-group-item list-group-item-action"><a href="/{{ page }}/{{ region }}/{{ item }}">{{ item.split('/')[1] }}</a></li>
                     {% endif %}
                 {% endfor %}
                 <li class="list-group-item list-group-item-warning"><a href="/clear">[Clear]</a></li>
@@ -34,16 +34,17 @@
         {% endif %}
     </div>
 
+    <!--
     <p><h6>More:</h6></p>
-    <!--<ul class="list-unstyled list-group">
+    <ul class="list-unstyled list-group">
         <li class="list-group-item list-group-item-action">
             <p><a href="/orders/{{ order }}" target="_self">{{ order }}</a></p>            
             <ul class="list-unstyled list-group">
                 <li class="list-group-item list-group-item-action"><a href="/families/{{ family }}" target="_self">{{ family }}</a></li>
             </ul>
         </li>
-    </ul>-->
-    <!--<ul class="list-unstyled list-group">
+    </ul
+    <ul class="list-unstyled list-group">
         <li class="list-group-item list-group-item-secondary">{{ region }}</li>
         <li class="list-group-item">{{ data|length }} hotspots.</li>
         {% for item in data %}
@@ -53,6 +54,7 @@
                 lat: {{ item.lat }}, lng: {{ item.lng }}
             </li>
         {% endfor %}
-    </ul>-->
+    </ul>
+    -->
 
 {% endblock %}

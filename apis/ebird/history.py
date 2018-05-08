@@ -60,8 +60,10 @@ def get_previous_hotspots(region):
     data = []
     for key in session:
         if 'h:' in session[key]:
-            data.append(session[key][2:].replace("%20", " "))
+            if region in session[key]:
+                data.append(session[key][2:].replace("%20", " "))
 
+    print("get, region: " + str(region))
     print("get, data: " + str(data))
     return data
 
