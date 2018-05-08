@@ -1,11 +1,15 @@
 {% extends "base.html" %}
 {% block title %}location{% endblock %}
 {% block content %}
-    <ul class="list-unstyled list-group">
+<ul class="list-unstyled list-group">
+    <li class="list-group-item list-group-item-success">{{ region }}</li>
+    <!--<span style="visibility: hidden;">{{ code }}</span>-->
+</ul>
+<ul class="list-unstyled list-group">
+        <li class="list-group-item list-group-item-secondary"><a href="http://ebird.org/ebird/hotspot/{{ id }}" target="_blank" class="external">{{ name }}</a></li>
         {% if data|length == 0 %}
-            <li class="list-group-item list-group-item-warning">No data found: check location.</li>
+        <li class="list-group-item list-group-item-warning">No data found: check location.</li>
         {% else %}
-            <li class="list-group-item list-group-item-secondary"><a href="http://ebird.org/ebird/hotspot/{{ data[0].locId }}" target="_blank" class="external">{{ data[0].locName }}</a></li>
             <li class="list-group-item">{{ data|length }} species in last {{ days }} days.</li>
             {% set prevdate = "" %}
             {% for item in data %}
