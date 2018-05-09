@@ -98,6 +98,12 @@ def get_hotspots(region):
     previous = searches.get_previous_hotspots(region)
     return render_template('hotspots_results.html', previous=previous, page="locations", region=region.replace("%20", " "))
 
+@app.route('/hotspots/all/<string:region>', methods=['GET'])
+def get_hotspots_all(region):
+    """ Show hotspots results page for all hotspots in a region. """
+    data = service.region_hotspots(region)
+    return render_template('hotspots_results_all.html', data=data, page="hotspots", region=region.replace("%20", " "))
+
 # taxa
 @app.route('/taxa', methods=['GET'])
 def get_taxa_search():
@@ -146,7 +152,7 @@ def get_region_data():
     return app.send_static_file('data_subnationals2.json')
 
 @app.route('/data_hotspots/<string:region>', methods=['GET'])
-def get_hotspots_all(region):
+def get_hotspots_data(region):
     """ Show hotspots data for filter. """
     data = service.region_hotspots_all(region)
     return data
