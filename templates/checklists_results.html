@@ -14,11 +14,12 @@
             <li class="list-group-item list-group-item-action">
                 {{ item.numSpecies }} species
                 <br>
-                @ <a href="/locations/{{ region }}/{{ item.locName }}/{{ item.locId }}" target="_self">{{ item.loc.name }}</a>
+                @ <a href="/locations/{{ region }}/{{ item.loc.name }}/{{ item.locId }}" target="_self">{{ item.loc.name }}</a>
                 <br>
                 <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsTime }}</a>
                 -- {{ item.userDisplayName }}
             </li>
         {% endfor %}
     </ul>
+    <br><br>
 {% endblock %}
