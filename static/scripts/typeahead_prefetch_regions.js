@@ -28,7 +28,7 @@ $(document).ready(function() {
     var page = "checklists";
     if (document.URL.includes('hotspots')) {
         page = "hotspots";
-    } else {
+    } else if (document.URL.includes('notables')) {
         page = "notables";
     }
 
