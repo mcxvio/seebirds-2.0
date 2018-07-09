@@ -6,7 +6,7 @@
     <!--<span style="visibility: hidden;">{{ code }}</span>-->
 </ul>
 <ul class="list-unstyled list-group">
-        <li class="list-group-item list-group-item-success"><a href="http://ebird.org/ebird/hotspot/{{ id }}" target="_blank" class="external">{{ name }}</a></li>
+        <li class="list-group-item list-group-item-success"><a href="http://ebird.org/ebird/hotspot/{{ id }}" target="_blank" class="external">{{ name | replace("%20", " ") }}</a></li>
         {% if data|length == 0 %}
         <li class="list-group-item list-group-item-warning">No data found: check location.</li>
         {% else %}
