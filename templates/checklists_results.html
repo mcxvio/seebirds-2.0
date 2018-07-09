@@ -2,7 +2,7 @@
 {% block title %}checklists results{% endblock %}
 {% block content %}
     <ul class="list-unstyled list-group">
-        <li class="list-group-item list-group-item-success">{{ region }}</li>
+        <li class="list-group-item list-group-item-success">{{ region | replace("%20", " ") }}</li>
         <li class="list-group-item">{{ data|length }} most recent checklists and species seen.</li>
         {% set prevdate = "" %}
         {% for item in data %}

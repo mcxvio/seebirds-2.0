@@ -11,7 +11,7 @@
 {% block content %}
     <p><h6>In:</h6></p>
     <ul class="list-unstyled list-group">
-        <li class="list-group-item list-group-item-success">{{ region }}</li>
+        <li class="list-group-item list-group-item-success">{{ region | replace("%20", " ") }}</li>
         <!--<span style="visibility: hidden;">{{ code }}</span>-->
     </ul>
     <p><h6>Find:</h6></p>

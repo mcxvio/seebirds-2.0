@@ -37,10 +37,10 @@ $(document).ready(function() {
             source: items.ttAdapter(),
             templates: {
                 empty: [
-                "<a href='#' class='list-group-item list-group-item-danger'>Unable to find any matching results.3</a>"
+                  '<a href="#" class="list-group-item list-group-item-danger">Unable to find any matching results.</a>'
                 ].join('\n'),
                 suggestion: function(data) {
-                  return "<a href='/locations/" + region + "/" + data.value + "/" + data.id + "' class='list-group-item list-group-item-action list-group-item-success'>" + data.value + "</a>";
+                  return '<a href="/locations/' + region + '/' + data.value.replace(/'/g, "\'") + '/' + data.id + '" class="list-group-item list-group-item-action list-group-item-success">' + data.value + '</a>';
                 }
             }
     });
