@@ -2,7 +2,7 @@
 {% block title %}location{% endblock %}
 {% block content %}
 <ul class="list-unstyled list-group">
-    <li class="list-group-item list-group-item-secondary">{{ region }}</li>
+    <li class="list-group-item list-group-item-secondary">{{ region | replace("%20", " ") }}</li>
     <!--<span style="visibility: hidden;">{{ code }}</span>-->
 </ul>
 <ul class="list-unstyled list-group">

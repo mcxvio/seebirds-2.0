@@ -2,7 +2,7 @@
 {% block title %}hotspots results{% endblock %}
 {% block content %}
     <ul class="list-unstyled list-group">
-        <li class="list-group-item list-group-item-success">{{ region }}</li>
+        <li class="list-group-item list-group-item-success">{{ region | replace("%20", " ") }}</li>
     </ul>
     <ul class="list-unstyled list-group">
         <li class="list-group-item">{{ data|length }} hotspots.</li>

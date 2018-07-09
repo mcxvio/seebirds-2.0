@@ -6,7 +6,7 @@
         <li class="list-group-item list-group-item-warning">{{ data.errors }}</li>
     {% else %}
         {% if data|length > 0 %}
-            <li class="list-group-item list-group-item-secondary">{{ region }}</li>
+            <li class="list-group-item list-group-item-secondary">{{ region | replace("%20", " ") }}</li>
             <li class="list-group-item list-group-item-success">
                 <a href="https://duckduckgo.com/?q={{ data[0].comName }}&iax=1&ia=images" target="_blank" class="external">{{ data[0].comName }}</a>
             </li>

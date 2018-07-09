@@ -42,7 +42,7 @@ def get_checklists(region):
     """ Show checklist search results. """
     searches.save_previous_region(region)
     data = service.region_checklists(region)
-    return render_template('checklists_results.html', data=data, region=region.replace("%20", " "))
+    return render_template('checklists_results.html', data=data, region=region)
 
 # notables
 @app.route('/notables', methods=['GET'])
@@ -57,7 +57,7 @@ def get_notables(region):
     searches.save_previous_region(region)
     days = str(app.config['DAYS_BACK'])
     data = service.region_notable(region, days)
-    return render_template('notables_results.html', data=data, region=region.replace("%20", " "), days=days)
+    return render_template('notables_results.html', data=data, region=region, days=days)
 
 # locations
 @app.route('/locations/<string:region>/<string:location_name>/<string:location_id>', methods=['GET'])
@@ -66,7 +66,7 @@ def get_locations(region, location_name, location_id):
     searches.save_previous_hotspots(region, location_name, location_id)
     days = str(app.config['DAYS_BACK'])
     data = service.region_location_obs(location_id, days)
-    return render_template('locations_results.html', data=data, region=region.replace("%20", " "), name=location_name, id=location_id, days=days)
+    return render_template('locations_results.html', data=data, region=region, name=location_name, id=location_id, days=days)
 
 # species
 @app.route('/species/<string:region>/<string:full_name>', methods=['GET'])
@@ -82,7 +82,7 @@ def get_species(region, full_name):
     searches.save_previous_region(region)
     data = service.region_species_code_obs(region, species_code, days)
     return render_template('species_results.html',
-                           data=data, region=region.replace("%20", " "), name=full_name, days=days)
+                           data=data, region=region, name=full_name, days=days)
 
 # hotspots
 @app.route('/hotspots', methods=['GET'])
@@ -96,13 +96,13 @@ def get_hotspots(region):
     """ Show hotspots results page. """
     searches.save_previous_region(region)
     previous = searches.get_previous_hotspots(region)
-    return render_template('hotspots_results.html', previous=previous, page="locations", region=region.replace("%20", " "))
+    return render_template('hotspots_results.html', previous=previous, page="locations", region=region)
 
 @app.route('/hotspots/all/<string:region>', methods=['GET'])
 def get_hotspots_all(region):
     """ Show hotspots results page for all hotspots in a region. """
     data = service.region_hotspots(region)
-    return render_template('hotspots_results_all.html', data=data, page="hotspots", region=region.replace("%20", " "))
+    return render_template('hotspots_results_all.html', data=data, page="hotspots", region=region)
 
 # taxa
 @app.route('/taxa', methods=['GET'])

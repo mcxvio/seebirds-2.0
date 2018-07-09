@@ -2,7 +2,7 @@
 {% block title %}notables results{% endblock %}
 {% block content %}
     <ul class="list-unstyled list-group">
-        <li class="list-group-item list-group-item-success">{{ region }}</li>
+        <li class="list-group-item list-group-item-success">{{ region | replace("%20", " ") }}</li>
         <li class="list-group-item">{{ data|length }} notable sightings in last {{ days }} days.</li>
         {% set prevdate = "" %}
         {% for item in data %}
