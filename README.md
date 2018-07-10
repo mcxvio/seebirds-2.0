@@ -10,3 +10,17 @@ eBird 2.0 inquirer: python flask version.
 - Twitter Typeahead and Bloodhound for autocomplete;
 - all eBird countries and subregions (1 and 2);
 - results displayed without using tables.
+
+## Prerequisites
+
+- You need an eBird API key from [here](https://ebird.org/ebird/api/keygen).
+- Create a ```keys.json``` file in the root directory and copy your key into it.
+
+e.g.
+```
+{
+    "ebird_key":{
+        "X-eBirdApiToken":"your_key_goes_here"
+    }
+}
+```
