@@ -47,6 +47,19 @@ def region_species_obs(region_code, species_code, days):
 
     return response.text
 
+def region_species_historic_obs(region_code, historic_date):
+    response = requests.get("https://ebird.org/ws2.0/data/obs/"
+                        + region_code
+                        + "/historic/"
+                        + "2016/01/01"
+                        + "?rank=mrec"
+                        + "&detail=full"
+                        + "&cat=species",
+                        headers=get_ebird_key())
+    handle_status_code(response)
+
+    return response.text
+
 def region_location_obs(location_id, days):
     """ location/hotspot """
     response = requests.get("https://ebird.org/ws2.0/data/obs/"

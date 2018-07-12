@@ -157,6 +157,11 @@ def get_hotspots_data(region):
     data = service.region_hotspots_all(region)
     return data
 
+@app.route('/historic/<string:region_code>/<string:historic_date>', methods=['GET'])
+def get_historic_data(region_code, historic_date):
+    data = service.region_species_historic_obs(region_code, historic_date)
+    return str(data)
+
 # providers
 @app.route('/providers', methods=['GET'])
 def get_providers():
