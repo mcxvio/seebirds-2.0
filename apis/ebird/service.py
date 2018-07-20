@@ -38,7 +38,7 @@ def region_species_historic_obs(region_code, historic_date):
 
 def region_location_obs(location_id, days):
     """ Location species """
-    response = json.loads(json.loads(requester.region_location_obs(location_id, days)))
+    response = json.loads(requester.region_location_obs(location_id, days))
     return response
 
 def region_hotspots(region):
