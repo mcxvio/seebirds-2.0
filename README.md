@@ -1,4 +1,8 @@
-# seebirds_py3
+## seebirds-app
+- Azure DevOps code repository.
+- Azure WebApps for Containers docker deployed application.
+- Gitlab hosted container/docker repository.
+
 eBird 2.0 inquirer: python flask version.
 
 - added more options from ebird 2.0 api;

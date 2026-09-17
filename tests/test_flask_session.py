@@ -31,7 +31,10 @@ class FlaskSessionTestCase(unittest.TestCase):
             data.append(session[key])
         self.assertEqual(data, None)
 
-    def clear_previous_regions():
+    def clear_previous_regions(self):
         """ Clear previously searched for terms. """
         session.clear()
         self.assertEqual(len(session.keys()), 0)
+
+    if __name__ == '__main__':
+        unittest.main()

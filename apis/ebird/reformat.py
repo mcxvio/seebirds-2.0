@@ -1,6 +1,21 @@
 """ Reformat functions. """
 from datetime import datetime
 
+def blank_recurring_dates(response, dateortime):
+    """ Show date the first time it occurs, blank otherwise. """
+    previous_date = ""
+
+    for item in response:
+        obsDt = item['obsDt']
+        if obsDt == previous_date:
+            item['obsDt'] = ""
+        else:
+            previous_date = obsDt
+            if dateortime != "":
+                item['obsDt'] = extract_date_time(obsDt, dateortime)
+           
+    return response
+
 def extract_hotspots(response):
     """ Extract hotspots...hopefully to be implemented by ebird. """
     hotspots = []
@@ -28,7 +43,9 @@ def extract_date_time(value, dateortime):
         return obs_date_time.strftime('%d %B')
     elif dateortime == 'dx':
         return obs_date_time.strftime('%Y-%m-%d')
-
+    elif dateortime == 'ddt':
+        return obs_date_time.strftime('%A %d %B, %H:%M')
+    # 't' is the default option.
     return obs_date_time.strftime('%H:%M')
 
 def extract_unique_date_times(response):
@@ -46,6 +63,14 @@ def extract_unique_dates(response):
         if not extract_date_time(item['obsDt'], 'dx') in unique_dates:
             unique_dates.append(extract_date_time(item['obsDt'], 'dx'))
     return unique_dates
+
+def extract_unique_submissions(response):
+    """ Extract unique submissions (de-dup for submission per photograph). """
+    unique_subs = []
+    for item in response:
+        if not item in unique_subs:
+            unique_subs.append(item)
+    return unique_subs
 
 def remove_ob_items(observation):
     """ Remove observation items. """

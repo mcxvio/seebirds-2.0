@@ -1,10 +1,13 @@
+/bak
+*.bak
 # private key file
 *keys.json
 keys.json
 
 # icons
-static/open-iconic-master
+#static/open-iconic-master
 
+*.vs/
 *.vscode/
 *.DS_Store
 *.bak
@@ -107,3 +110,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Local Flask configuration and secret key
+app.cfg

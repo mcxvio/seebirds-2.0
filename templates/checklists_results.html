@@ -4,19 +4,16 @@
     <ul class="list-unstyled list-group">
         <li class="list-group-item list-group-item-success">{{ region | replace("%20", " ") }}</li>
         <li class="list-group-item">{{ data|length }} most recent checklists and species seen.</li>
-        {% set prevdate = "" %}
         {% for item in data %}
-            {% set obsdate = item.obsDt|getdatetime('da') %}
-            {% if prevdate != obsdate %}
-                <li class="list-group-item list-group-item-info">{{ obsdate }}</li>
-                {% set prevdate = obsdate %}
+            {% if item.obsDt|string() != "" %}
+                <li class="list-group-item list-group-item-info">{{ item.obsDt }}</li>
             {% endif %}
             <li class="list-group-item list-group-item-action">
                 {{ item.numSpecies }} species
                 <br>
                 @ <a href="/locations/{{ region }}/{{ item.loc.name }}/{{ item.locId }}" target="_self">{{ item.loc.name }}</a>
                 <br>
-                <a href="https://ebird.org/ebird/view/checklist?subID={{ item.subID }}" target="_blank" class="external">{{ item.obsTime }}</a>
+                <a href="/submission/{{ region }}/{{ item.loc.name }}/{{ item.subID }}" target="_self">{{ item.obsTime }}</a>
                 -- {{ item.userDisplayName }}
             </li>
         {% endfor %}

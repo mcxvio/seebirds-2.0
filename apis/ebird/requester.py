@@ -20,6 +20,27 @@ def region_checklists(region_code):
 
     return response.text
 
+def checklist_submission(submission_id):
+    """ checklist details """
+    #https://ebird.org/ws2.0/product/checklist/view/{{subId}}
+    response = requests.get("https://ebird.org/ws2.0/product/checklist/view/"
+                            + submission_id,
+                            headers=get_ebird_key())
+    handle_status_code(response)
+
+    return response.text
+
+def species_common_name(species_code):
+    """ checklist details """
+    #https://ebird.org/ws2.0/product/checklist/view/{{subId}}
+    response = requests.get("https://ebird.org/ws2.0/ref/taxonomy/ebird?species="
+                            + species_code
+                            + "&fmt=json",
+                            headers=get_ebird_key())
+    handle_status_code(response)
+
+    return response.text
+
 def region_notable(region_code, days):
     """ notables """
     response = requests.get("https://ebird.org/ws2.0/data/obs/"
